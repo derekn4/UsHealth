@@ -6,19 +6,59 @@
 //
 
 import UIKit
+import Firebase
+import GoogleSignIn
 
 @main
-class AppDelegate: UIResponder, UIApplicationDelegate {
-
-
+class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
+    //@Published var email = ""
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        FirebaseApp.configure()
+
+        GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
+        GIDSignIn.sharedInstance().delegate = self
         return true
+    }
+    
+    func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
+        if error != nil {
+            print(error.localizedDescription)
+            return
+        }else {
+            print("Log Out success!")
+        }
+    }
+        
+    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
+        guard let user = user else {return}
+        
+        let credential = GoogleAuthProvider.credential(withIDToken: user.authentication.idToken, accessToken: user.authentication.accessToken)
+        
+        //Signin to Firebase
+        Auth.auth().signIn(with: credential) { (result, error) in
+            if error != nil {
+                print((error?.localizedDescription)!)
+                return
+            }
+
+            
+            NotificationCenter.default.post(name: NSNotification.Name("SIGNIN"),  object: nil)
+            
+            //self.email = (result?.user.email)!
+            print("User email: \(user.profile.email ?? "No Email")")
+            
+        }
+    
     }
 
     // MARK: UISceneSession Lifecycle
-
+    func application(_ application: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any])
+      -> Bool {
+      return GIDSignIn.sharedInstance().handle(url)
+    }
+    
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
         // Called when a new scene session is being created.
         // Use this method to select a configuration to create the new scene with.

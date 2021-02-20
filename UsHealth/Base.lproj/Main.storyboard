@@ -1,24 +1,76 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.16" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.12"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="UsHealth" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" xcode11CocoaTouchSystemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C7V-Ui-4yr" customClass="GIDSignInButton">
+                                <rect key="frame" x="20" y="744" width="374" height="60"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="58y-Ny-hgQ"/>
+                                </constraints>
+                            </view>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="usHealthLogo2" translatesAutoresizingMaskIntoConstraints="NO" id="S8H-uA-W0P">
+                                <rect key="frame" x="99" y="257" width="216" height="216"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Let UsHealth You!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vg8-YF-J8v">
+                                <rect key="frame" x="43" y="481" width="329" height="52"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="43"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="UsHealth" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vJ5-db-FYW">
+                                <rect key="frame" x="83" y="188" width="249" height="61"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="51"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="C7V-Ui-4yr" secondAttribute="bottom" constant="58" id="Ahv-bq-1ay"/>
+                            <constraint firstItem="S8H-uA-W0P" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="99" id="B75-ur-6Hy"/>
+                            <constraint firstItem="S8H-uA-W0P" firstAttribute="top" secondItem="vJ5-db-FYW" secondAttribute="bottom" constant="8" symbolic="YES" id="L87-ii-xIw"/>
+                            <constraint firstItem="Vg8-YF-J8v" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="43" id="LZO-U8-LnN"/>
+                            <constraint firstItem="vJ5-db-FYW" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="144" id="McY-VI-SJJ"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Vg8-YF-J8v" secondAttribute="trailing" constant="42" id="ObH-NL-fTp"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="vJ5-db-FYW" secondAttribute="trailing" constant="82" id="R6g-w1-4Ec"/>
+                            <constraint firstItem="vJ5-db-FYW" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="83" id="RUj-o5-RGV"/>
+                            <constraint firstItem="C7V-Ui-4yr" firstAttribute="top" secondItem="Vg8-YF-J8v" secondAttribute="bottom" constant="211" id="TUw-z7-z1k"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="C7V-Ui-4yr" secondAttribute="trailing" constant="20" id="c88-AV-LaU"/>
+                            <constraint firstItem="C7V-Ui-4yr" firstAttribute="top" secondItem="Vg8-YF-J8v" secondAttribute="bottom" constant="211" id="d0t-Ok-IUq"/>
+                            <constraint firstItem="Vg8-YF-J8v" firstAttribute="top" secondItem="S8H-uA-W0P" secondAttribute="bottom" constant="8" symbolic="YES" id="mcF-VU-d9u"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="S8H-uA-W0P" secondAttribute="trailing" constant="99" id="pkp-eM-237"/>
+                            <constraint firstItem="C7V-Ui-4yr" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="rx4-s2-3Ue"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="signInButton" destination="C7V-Ui-4yr" id="iNt-JX-L82"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="18.840579710144929" y="88.392857142857139"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="usHealthLogo2" width="216" height="216"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>
