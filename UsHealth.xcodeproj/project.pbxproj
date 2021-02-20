@@ -15,6 +15,7 @@
 		F2368B9325E1BF4B00F0E4FA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F2368B9125E1BF4B00F0E4FA /* LaunchScreen.storyboard */; };
 		F2368B9C25E1BF8400F0E4FA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F2368B9B25E1BF8400F0E4FA /* GoogleService-Info.plist */; };
 		F2368BAF25E1CCC100F0E4FA /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2368BAE25E1CCC100F0E4FA /* LoginViewController.swift */; };
+		F2368BB325E1CFDD00F0E4FA /* QuestionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2368BB225E1CFDD00F0E4FA /* QuestionsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +30,7 @@
 		F2368B9425E1BF4B00F0E4FA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F2368B9B25E1BF8400F0E4FA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F2368BAE25E1CCC100F0E4FA /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		F2368BB225E1CFDD00F0E4FA /* QuestionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionsViewController.swift; sourceTree = "<group>"; };
 		FDA262367F8DA98FA29E3F81 /* Pods_UsHealth.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UsHealth.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -90,6 +92,7 @@
 				F2368B9125E1BF4B00F0E4FA /* LaunchScreen.storyboard */,
 				F2368B9425E1BF4B00F0E4FA /* Info.plist */,
 				F2368BAE25E1CCC100F0E4FA /* LoginViewController.swift */,
+				F2368BB225E1CFDD00F0E4FA /* QuestionsViewController.swift */,
 			);
 			path = UsHealth;
 			sourceTree = "<group>";
@@ -229,6 +232,7 @@
 			files = (
 				F2368BAF25E1CCC100F0E4FA /* LoginViewController.swift in Sources */,
 				F2368B8725E1BF4A00F0E4FA /* AppDelegate.swift in Sources */,
+				F2368BB325E1CFDD00F0E4FA /* QuestionsViewController.swift in Sources */,
 				F2368B8925E1BF4A00F0E4FA /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

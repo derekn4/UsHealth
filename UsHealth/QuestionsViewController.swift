@@ -1,29 +1,18 @@
 //
-//  LoginViewController.swift
+//  QuestionsViewController.swift
 //  UsHealth
 //
 //  Created by Derek Nguyen on 2/20/21.
 //
 
 import UIKit
-import Firebase
-import GoogleSignIn
 
-class LoginViewController: UIViewController {
+class QuestionsViewController: UIViewController {
 
-    @IBOutlet var signInButton: GIDSignInButton!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        if GIDSignIn.sharedInstance()?.currentUser != nil {
-            
-        }
-        else {
-            GIDSignIn.sharedInstance()?.signIn()
-        }
-        GIDSignIn.sharedInstance()?.presentingViewController = self
     }
     
 

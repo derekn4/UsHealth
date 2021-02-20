@@ -11,8 +11,7 @@ import GoogleSignIn
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
-    //@Published var email = ""
-
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         FirebaseApp.configure()
@@ -32,23 +31,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
     }
         
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
-        guard let user = user else {return}
-        
-        let credential = GoogleAuthProvider.credential(withIDToken: user.authentication.idToken, accessToken: user.authentication.accessToken)
-        
-        //Signin to Firebase
-        Auth.auth().signIn(with: credential) { (result, error) in
-            if error != nil {
-                print((error?.localizedDescription)!)
-                return
-            }
+        if (error==nil) {
+            guard let user = user else {return}
+            
+            guard let authentication = user.authentication else {return}
+            
+            let credential = GoogleAuthProvider.credential(withIDToken: user.authentication.idToken, accessToken: user.authentication.accessToken)
+            
+            //Signin to Firebase
+            Auth.auth().signIn(with: credential) { (result, error) in
+                if error != nil {
+                    print((error?.localizedDescription)!)
+                    return
+                }
 
-            
-            NotificationCenter.default.post(name: NSNotification.Name("SIGNIN"),  object: nil)
-            
-            //self.email = (result?.user.email)!
-            print("User email: \(user.profile.email ?? "No Email")")
-            
+                else {
+                    UserDefaults.standard.set(true, forKey: "userSignedIn")
+                    NotificationCenter.default.post(name: NSNotification.Name("SIGNIN"),  object: nil)
+                    UserDefaults.standard.synchronize()
+                    
+                    //self.email = (result?.user.email)!
+                    print("User email: \(user.profile.email ?? "No Email")")
+                    let VC1 = (self.storyboard?)
+                    
+                }
+                
+            }
         }
     
     }

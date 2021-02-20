@@ -60,7 +60,7 @@
                     </view>
                     <connections>
                         <outlet property="signInButton" destination="C7V-Ui-4yr" id="P9j-Ih-5RT"/>
-                        <segue destination="1JH-aj-EUE" kind="presentation" id="7pT-rh-iRr"/>
+                        <segue destination="1JH-aj-EUE" kind="show" id="acE-38-F9H"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -94,14 +94,15 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fGT-Do-c47" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1882" y="84"/>
+            <point key="canvasLocation" x="1807" y="84"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="WMi-BD-xu6">
             <objects>
-                <navigationController id="1JH-aj-EUE" sceneMemberID="viewController">
+                <navigationController modalPresentationStyle="fullScreen" id="1JH-aj-EUE" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="CEO-a5-XUP"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="sLZ-rk-Wbc">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -110,9 +111,39 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="h6K-Ug-XWT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1012" y="84"/>
+            <point key="canvasLocation" x="829" y="84"/>
+        </scene>
+        <!--Questions View Controller-->
+        <scene sceneID="fnv-bn-RSB">
+            <objects>
+                <viewController storyboardIdentifier="questionnaire" id="cUX-OO-IFa" customClass="QuestionsViewController" customModule="UsHealth" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="HA8-pv-Q8c">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Questionnaire" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oLe-p9-qyM">
+                                <rect key="frame" x="45" y="92" width="325" height="60"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="50"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="bQI-xo-n0g"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <connections>
+                        <segue destination="1JH-aj-EUE" kind="show" id="Bp4-HA-p5c"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jgS-wh-B8k" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="828.98550724637687" y="-736.60714285714278"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="Bp4-HA-p5c"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <image name="usHealthLogo2" width="216" height="216"/>
         <systemColor name="systemBackgroundColor">
