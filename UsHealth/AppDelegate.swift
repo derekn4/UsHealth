@@ -14,7 +14,11 @@ import GoogleSignIn
 class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
     
     var window: UIWindow?
-    var userData: UserInfo?
+//    var userData: UserInfo! {
+//        didSet {
+//            NotificationCenter.default.post(name: NSNotification.Name("refreshView"),  object: nil)
+//        }
+//    }
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -33,7 +37,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
             print(error.localizedDescription)
             return
         }else {
-            print("Log Out success!")
+            let firebaseAuth = Auth.auth()
+            do {
+                try firebaseAuth.signOut()
+                print("Log Out success!")
+            } catch let signOutError as NSError {
+                print("Error Signing out: %@", signOutError)
+            }
         }
     }
         
@@ -42,7 +52,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
                 
         let credential = GoogleAuthProvider.credential(withIDToken: user.authentication.idToken,
                                                        accessToken: user.authentication.accessToken)
-        //Signin to Firebase
+        //Signin to Google via firebase stuff
         Auth.auth().signIn(with: credential) { (result, error) in
             if error != nil {
                 print((error?.localizedDescription)!)
@@ -50,10 +60,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
             }
             else {
                 
-                self.userData?.email = user.profile.email
-                self.userData?.userID = user.userID
-                self.userData?.givenName = user.profile.givenName
-                self.userData?.familyName = user.profile.familyName
+//                self.userData?.email = user.profile.email
+//                self.userData?.userID = user.userID
+//                self.userData?.givenName = user.profile.givenName
+//                self.userData?.familyName = user.profile.familyName
                 
                 print(user.profile.email ?? "No Email")
                 

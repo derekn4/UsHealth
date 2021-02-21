@@ -11,6 +11,7 @@ import GoogleSignIn
 class QuestionsViewController: UIViewController {
 
     @IBOutlet weak var submit: UIButton!
+    var user: GIDGoogleUser!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,12 +21,20 @@ class QuestionsViewController: UIViewController {
     
     @IBAction func sendToDash(_ sender: Any) {
         print("Finished questions, go to Home")
+        print(user.profile?.email! as Any)
         self.performSegue(withIdentifier: "postQsHome", sender: self)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let user = GIDSignIn.sharedInstance()?.currentUser
-        let
+//        let user = GIDSignIn.sharedInstance()?.currentUser
+//        let nav = segue.destination as! UINavigationController
+//        let destVC = segue.destination as! HomeViewController
+//        destVC.user = user
+        //let user = GIDSignIn.sharedInstance()?.currentUser
+        if let nav = segue.destination as? UINavigationController,
+            let destVC = nav.topViewController as? HomeViewController {
+            destVC.user = self.user
+        }
     }
     
     /*

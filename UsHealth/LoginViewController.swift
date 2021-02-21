@@ -40,11 +40,19 @@ class LoginViewController: UIViewController {
     }
     
     
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        let user = GIDSignIn.sharedInstance()?.currentUser
-//        let destVC = segue.destination as! HomeViewController
-//        destVC.user = user
-//    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if (segue.identifier=="starterQs"){
+            let user = GIDSignIn.sharedInstance()?.currentUser
+            let destVC = segue.destination as! QuestionsViewController
+            destVC.user = user
+        } else {
+            let user = GIDSignIn.sharedInstance()?.currentUser
+            if let nav = segue.destination as? UINavigationController,
+                let destVC = nav.topViewController as? HomeViewController {
+                destVC.user = user
+            }
+        }
+    }
     /*
     // MARK: - Navigation
 

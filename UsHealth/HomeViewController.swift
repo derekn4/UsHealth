@@ -11,17 +11,15 @@ import FirebaseAuth
 
 class HomeViewController: UIViewController {
     
+    var user: GIDGoogleUser!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        print(user.profile.familyName as Any)
         // Do any additional setup after loading the view.
     }
     
-
-    @IBAction func signOut(_ sender: Any) {
-        print(GIDSignIn.sharedInstance()?.currentUser)
-        GIDSignIn.sharedInstance()?.signOut()
-    }
+    
     /*
     // MARK: - Navigation
 

@@ -60,8 +60,8 @@
                     <navigationItem key="navigationItem" id="KTE-T4-8q1"/>
                     <connections>
                         <outlet property="signInButton" destination="C7V-Ui-4yr" id="P9j-Ih-5RT"/>
-                        <segue destination="1JH-aj-EUE" kind="show" identifier="directHome" id="f5T-eb-9Zx"/>
                         <segue destination="cUX-OO-IFa" kind="presentation" identifier="starterQs" id="pMD-fz-7xa"/>
+                        <segue destination="1JH-aj-EUE" kind="show" identifier="directHome" id="PtN-MQ-RSr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -76,13 +76,40 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <view key="tableHeaderView" contentMode="scaleToFill" id="uqu-al-SNT" userLabel="Progress">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="213"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" fixedFrame="YES" image="usHealthLogo2" translatesAutoresizingMaskIntoConstraints="NO" id="s39-hy-RlY">
+                                    <rect key="frame" x="59" y="44" width="125" height="125"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                </imageView>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Progress Info Here" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HlF-nP-vx0">
+                                    <rect key="frame" x="283" y="96" width="142" height="21"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="HiA-hp-425">
-                                <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
+                                <rect key="frame" x="0.0" y="241" width="414" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="HiA-hp-425" id="azW-ti-xYW">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Workouts Go Here" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t1x-23-SAY">
+                                            <rect key="frame" x="37" y="11" width="175" height="27"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
                                 </tableViewCellContentView>
                             </tableViewCell>
                         </prototypes>
@@ -92,23 +119,12 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Home" id="Sun-nC-AAm">
-                        <barButtonItem key="leftBarButtonItem" title="LogoutButton" style="plain" id="vkI-Og-b6d">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="41G-Vp-XXo">
-                                <rect key="frame" x="20" y="11" width="92" height="34"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                <state key="normal" title="Logout"/>
-                            </button>
-                            <connections>
-                                <action selector="signOut:" destination="pVj-3Q-THW" id="Hnu-mw-1El"/>
-                            </connections>
-                        </barButtonItem>
+                        <barButtonItem key="leftBarButtonItem" title="Logout" id="2Mo-kW-3N3"/>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fGT-Do-c47" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-                <exit id="pVj-3Q-THW" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1807" y="84"/>
+            <point key="canvasLocation" x="1805.7971014492755" y="403.79464285714283"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="WMi-BD-xu6">
@@ -125,7 +141,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="h6K-Ug-XWT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="829" y="84"/>
+            <point key="canvasLocation" x="829" y="404"/>
         </scene>
         <!--Questions View Controller-->
         <scene sceneID="fnv-bn-RSB">
@@ -172,7 +188,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jgS-wh-B8k" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="828.98550724637687" y="-736.60714285714278"/>
+            <point key="canvasLocation" x="829" y="-346"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
