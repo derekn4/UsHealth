@@ -23,10 +23,14 @@ class LoginViewController: UIViewController {
         else {
             GIDSignIn.sharedInstance()?.presentingViewController = self
             //GIDSignIn.sharedInstance()?.signIn()
+            NotificationCenter.default.addObserver(self, selector: #selector(userDidSignInGoogle(_:)), name: NSNotification.Name("SIGNIN"), object: nil)
         }
     }
     
-
+    @objc private func userDidSignInGoogle(_ notification: Notification) {
+        // Update screen after user successfully signed in
+        self.performSegue(withIdentifier: "directHome", sender: self)
+    }
     /*
     // MARK: - Navigation
 

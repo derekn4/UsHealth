@@ -13,7 +13,7 @@ import GoogleSignIn
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
     
-    var window: UIWindow?
+    //var window: UIWindow?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -21,6 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
 
         GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
         GIDSignIn.sharedInstance().delegate = self
+        
         
         return true
     }
@@ -45,26 +46,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
                 print((error?.localizedDescription)!)
                 return
             }
-
+            else {
             
-            NotificationCenter.default.post(name: NSNotification.Name("SIGNIN"),  object: nil)
-            
-            print(user.profile.email ?? "No Email")
-            //self.window?.rootViewController?.performSegue(withIdentifier: "directHome", sender: self)
-            
-            
-//            let newUserRref = Auth.auth().currentUser?.metadata
-//
-//            if newUserRref?.creationDate?.timeIntervalSince1970 == newUserRref?.lastSignInDate?.timeIntervalSince1970 {
-//                print("Hello new user")
-//                self.window?.rootViewController?.performSegue(withIdentifier: "starterQuestions", sender: self)
-//            } else {
-//                print("Welcome Back!")
-//                self.window?.rootViewController?.performSegue(withIdentifier: "directHome", sender: self)
-//            }
-            
+                NotificationCenter.default.post(name: NSNotification.Name("SIGNIN"),  object: nil)
+                print(user.profile.email ?? "No Email")
+            }
         }
-    
     }
 
     // MARK: UISceneSession Lifecycle
