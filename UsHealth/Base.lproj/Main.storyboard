@@ -18,7 +18,7 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C7V-Ui-4yr" customClass="GIDSignInButton">
                                 <rect key="frame" x="20" y="744" width="374" height="60"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="backgroundColor" red="0.66243025379999998" green="0.81152806669999999" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="58y-Ny-hgQ"/>
                                 </constraints>
@@ -60,8 +60,8 @@
                     </view>
                     <connections>
                         <outlet property="signInButton" destination="C7V-Ui-4yr" id="P9j-Ih-5RT"/>
-                        <segue destination="1JH-aj-EUE" kind="show" id="acE-38-F9H"/>
-                        <segue destination="cUX-OO-IFa" kind="presentation" id="uGl-PD-azr"/>
+                        <segue destination="1JH-aj-EUE" kind="show" identifier="directHome" id="acE-38-F9H"/>
+                        <segue destination="cUX-OO-IFa" kind="presentation" identifier="starterQuestions" id="uGl-PD-azr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -117,13 +117,13 @@
         <!--Questions View Controller-->
         <scene sceneID="fnv-bn-RSB">
             <objects>
-                <viewController storyboardIdentifier="questionnaire" id="cUX-OO-IFa" customClass="QuestionsViewController" customModule="UsHealth" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="cUX-OO-IFa" customClass="QuestionsViewController" customModule="UsHealth" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="HA8-pv-Q8c">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Questionnaire" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oLe-p9-qyM">
-                                <rect key="frame" x="95" y="63" width="230" height="42"/>
+                                <rect key="frame" x="95" y="62" width="230" height="42"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="35"/>
                                 <nil key="textColor"/>
@@ -136,12 +136,25 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MWN-pT-LOX">
+                                <rect key="frame" x="148" y="730" width="118" height="42"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.17088751199999999" green="0.84195380070000003" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <state key="normal" title="Submit">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="sendToDash:" destination="cUX-OO-IFa" eventType="touchUpInside" id="x7P-QY-3gi"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="bQI-xo-n0g"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <connections>
-                        <segue destination="1JH-aj-EUE" kind="show" id="Bp4-HA-p5c"/>
+                        <outlet property="submit" destination="MWN-pT-LOX" id="Vrp-K8-03a"/>
+                        <segue destination="1JH-aj-EUE" kind="show" identifier="postQsHome" id="Bp4-HA-p5c"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jgS-wh-B8k" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

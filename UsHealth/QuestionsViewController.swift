@@ -9,13 +9,19 @@ import UIKit
 
 class QuestionsViewController: UIViewController {
 
+    @IBOutlet weak var submit: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
     }
     
-
+    @IBAction func sendToDash(_ sender: Any) {
+        print("Finished questions, go to Home")
+        self.performSegue(withIdentifier: "postQsHome", sender: self)
+    }
+    
     /*
     // MARK: - Navigation
 
