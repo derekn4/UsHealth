@@ -8,11 +8,11 @@
 import UIKit
 import GoogleSignIn
 import FirebaseAuth
-
+import EventKit
 class HomeViewController: UITableViewController {
     
     var user: GIDGoogleUser!
-    
+    let eventsCalendarManager: EventCalendarManager!
     override func viewDidLoad() {
         super.viewDidLoad()
         print(user.profile.familyName as Any)
@@ -43,4 +43,24 @@ class HomeViewController: UITableViewController {
         return 0
     }
 
+    @IBAction func AddEventButton(_ sender: Any) {
+        let event_ = EKEvent.init()
+        event_.title = "MyLocation"
+        eventsCalendarManager.addEventToCalendar(event: event_) { (result) in
+            switch result {
+            case .success:
+                self.view?.showEventAddedToCalendarAlert()
+            case .failure(let error):
+                switch error {
+                case .calendarAccessDeniedOrRestricted:
+                    self.view?.showSettingsAlert()
+                case .eventNotAddedToCalendar:
+                    self.view?.showEventNotAddedToCalendarAlert()
+                case .eventAlreadyExistsInCalendar:
+                    self.view?.showEventAlreadyExistsInCalendarAlert()
+                default: ()
+                }
+            }
+        }
+    }
 }

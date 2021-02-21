@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:/Users/benhuynh/Documents/UsHealth/UsHealthV2/UsHealth/UsHealth/EventsCalendarManager.swift">
+   </FileRef>
+   <FileRef
       location = "group:UsHealth.xcodeproj">
    </FileRef>
    <FileRef
