@@ -9,7 +9,7 @@ import UIKit
 import GoogleSignIn
 import FirebaseAuth
 
-class HomeViewController: UIViewController {
+class HomeViewController: UITableViewController {
     
     var user: GIDGoogleUser!
     
@@ -19,15 +19,28 @@ class HomeViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    @IBAction func onLogout(_ sender: Any) {
+        let firebaseAuth = Auth.auth()
+        do {
+            try firebaseAuth.signOut()
+            print("Log Out success!")
+        } catch let signOutError as NSError {
+            print("Error Signing out: %@", signOutError)
+        }
+//        do {
+//            try GIDSignIn.sharedInstance()?.signOut()
+//            print("Log Out success!")
+//        } catch let signOutError as NSError {
+//            print("Error Signing out: %@", signOutError)
+//        }
+        self.dismiss(animated: true, completion: nil)
     }
-    */
+    //    override func numberofSections(in tableView: UITableView) -> Int {
+//        return 0
+//    }
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 0
+    }
 
 }

@@ -71,7 +71,7 @@
         <!--Home-->
         <scene sceneID="57o-7h-XuV">
             <objects>
-                <tableViewController id="ITc-eE-Kd2" sceneMemberID="viewController">
+                <tableViewController id="ITc-eE-Kd2" customClass="HomeViewController" customModule="UsHealth" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="uX2-cV-7X5">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -119,7 +119,11 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Home" id="Sun-nC-AAm">
-                        <barButtonItem key="leftBarButtonItem" title="Logout" id="2Mo-kW-3N3"/>
+                        <barButtonItem key="leftBarButtonItem" title="Logout" id="2Mo-kW-3N3">
+                            <connections>
+                                <action selector="onLogout:" destination="ITc-eE-Kd2" id="C55-7Z-3Vm"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fGT-Do-c47" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
