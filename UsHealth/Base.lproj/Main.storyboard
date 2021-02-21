@@ -57,6 +57,7 @@
                             <constraint firstItem="C7V-Ui-4yr" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="rx4-s2-3Ue"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="KTE-T4-8q1"/>
                     <connections>
                         <outlet property="signInButton" destination="C7V-Ui-4yr" id="P9j-Ih-5RT"/>
                         <segue destination="1JH-aj-EUE" kind="show" identifier="directHome" id="f5T-eb-9Zx"/>
@@ -67,7 +68,7 @@
             </objects>
             <point key="canvasLocation" x="-194" y="84"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Home-->
         <scene sceneID="57o-7h-XuV">
             <objects>
                 <tableViewController id="ITc-eE-Kd2" sceneMemberID="viewController">
@@ -90,9 +91,22 @@
                             <outlet property="delegate" destination="ITc-eE-Kd2" id="PjD-hg-6ku"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="Sun-nC-AAm"/>
+                    <navigationItem key="navigationItem" title="Home" id="Sun-nC-AAm">
+                        <barButtonItem key="leftBarButtonItem" title="LogoutButton" style="plain" id="vkI-Og-b6d">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="41G-Vp-XXo">
+                                <rect key="frame" x="20" y="11" width="92" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <state key="normal" title="Logout"/>
+                            </button>
+                            <connections>
+                                <action selector="signOut:" destination="pVj-3Q-THW" id="Hnu-mw-1El"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fGT-Do-c47" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="pVj-3Q-THW" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1807" y="84"/>
         </scene>

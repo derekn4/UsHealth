@@ -14,6 +14,7 @@ import GoogleSignIn
 class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
     
     var window: UIWindow?
+    var userData: UserInfo?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -22,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
         GIDSignIn.sharedInstance().delegate = self
         
-        
+        //GIDSignIn.sharedInstance()?.restorePreviousSignIn()
         
         return true
     }
@@ -48,7 +49,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
                 return
             }
             else {
-            
+                
+                self.userData?.email = user.profile.email
+                self.userData?.userID = user.userID
+                self.userData?.givenName = user.profile.givenName
+                self.userData?.familyName = user.profile.familyName
+                
                 print(user.profile.email ?? "No Email")
                 
                 if let newUser: Bool = result?.additionalUserInfo?.isNewUser {

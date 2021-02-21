@@ -1,5 +1,5 @@
 //
-//  QuestionsViewController.swift
+//  HomeViewController.swift
 //  UsHealth
 //
 //  Created by Derek Nguyen on 2/20/21.
@@ -7,10 +7,9 @@
 
 import UIKit
 import GoogleSignIn
+import FirebaseAuth
 
-class QuestionsViewController: UIViewController {
-
-    @IBOutlet weak var submit: UIButton!
+class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,16 +17,11 @@ class QuestionsViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
-    @IBAction func sendToDash(_ sender: Any) {
-        print("Finished questions, go to Home")
-        self.performSegue(withIdentifier: "postQsHome", sender: self)
+
+    @IBAction func signOut(_ sender: Any) {
+        print(GIDSignIn.sharedInstance()?.currentUser)
+        GIDSignIn.sharedInstance()?.signOut()
     }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let user = GIDSignIn.sharedInstance()?.currentUser
-        let
-    }
-    
     /*
     // MARK: - Navigation
 

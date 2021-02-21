@@ -38,6 +38,13 @@ class LoginViewController: UIViewController {
         //self.performSegue(withIdentifier: "directHome", sender: self)
         self.performSegue(withIdentifier: "starterQs", sender: self)
     }
+    
+    
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        let user = GIDSignIn.sharedInstance()?.currentUser
+//        let destVC = segue.destination as! HomeViewController
+//        destVC.user = user
+//    }
     /*
     // MARK: - Navigation
 
