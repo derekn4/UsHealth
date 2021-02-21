@@ -9,10 +9,11 @@ import UIKit
 import GoogleSignIn
 import FirebaseAuth
 import EventKit
+
 class HomeViewController: UITableViewController {
     
     var user: GIDGoogleUser!
-    let eventsCalendarManager: EventCalendarManager!
+    //let eventsCalendarManager: EventCalendarManager!
     override func viewDidLoad() {
         super.viewDidLoad()
         print(user.profile.familyName as Any)
@@ -27,14 +28,9 @@ class HomeViewController: UITableViewController {
         } catch let signOutError as NSError {
             print("Error Signing out: %@", signOutError)
         }
-//        do {
-//            try GIDSignIn.sharedInstance()?.signOut()
-//            print("Log Out success!")
-//        } catch let signOutError as NSError {
-//            print("Error Signing out: %@", signOutError)
-//        }
         self.dismiss(animated: true, completion: nil)
     }
+    
     //    override func numberofSections(in tableView: UITableView) -> Int {
 //        return 0
 //    }
@@ -44,21 +40,70 @@ class HomeViewController: UITableViewController {
     }
 
     @IBAction func AddEventButton(_ sender: Any) {
-        let event_ = EKEvent.init()
-        event_.title = "MyLocation"
-        eventsCalendarManager.addEventToCalendar(event: event_) { (result) in
-            switch result {
-            case .success:
-                self.view?.showEventAddedToCalendarAlert()
-            case .failure(let error):
-                switch error {
-                case .calendarAccessDeniedOrRestricted:
-                    self.view?.showSettingsAlert()
-                case .eventNotAddedToCalendar:
-                    self.view?.showEventNotAddedToCalendarAlert()
-                case .eventAlreadyExistsInCalendar:
-                    self.view?.showEventAlreadyExistsInCalendarAlert()
-                default: ()
+        print("THIS SHOULD ADD EVENTS")
+        self.check_permission(start_date: Date(), event_name: "Testing")
+//        let eventsCalendarManager: EventsCalendarManager!
+//        let event_ = EKEvent.init()
+//        event_.title = "MyLocation"
+//        eventsCalendarManager.addEventToCalendar(event: event_) { (result) in
+//            switch result {
+//            case .success:
+//                self.view?.showEventAddedToCalendarAlert()
+//            case .failure(let error):
+//                switch error {
+//                case .calendarAccessDeniedOrRestricted:
+//                    self.view?.showSettingsAlert()
+//                case .eventNotAddedToCalendar:
+//                    self.view?.showEventNotAddedToCalendarAlert()
+//                case .eventAlreadyExistsInCalendar:
+//                    self.view?.showEventAlreadyExistsInCalendarAlert()
+//                default: ()
+//                }
+//            }
+//        }
+    }
+    
+    func check_permission(start_date: Date, event_name: String) {
+        let event_store = EKEventStore()
+        switch EKEventStore.authorizationStatus(for: .event) {
+        case .notDetermined:
+            event_store.requestAccess(to: .event) { (status, error) in
+                if status {
+                    self.insert_event(store: event_store, start_date: start_date, event_name: event_name)
+                } else {
+                    print(error?.localizedDescription)
+                }
+            }
+        case .restricted:
+            print("restricted")
+        case .denied:
+            print("denied")
+        case .authorized:
+            print("authorized")
+            self.insert_event(store: event_store, start_date: start_date, event_name: event_name)
+        @unknown default:
+            print("Unknown")
+        }
+    }
+    
+    func insert_event(store: EKEventStore, start_date: Date, event_name: String){
+        let calendars = store.calendars(for: .event)
+        for calendar in calendars {
+            if calendar.title == "Calendar" {
+                let event = EKEvent(eventStore: store)
+                event.calendar = calendar
+                event.startDate = start_date
+                event.title = event_name
+                event.endDate = event.startDate.addingTimeInterval(60*30)
+//                event.recurrenceRules = [EKRecurrenceRule(recurrenceWith)]
+                let reminder1 = EKAlarm(relativeOffset: -60)
+                let reminder2 = EKAlarm(relativeOffset: -30)
+                event.alarms = [reminder1, reminder2]
+                do {
+                    try store.save(event, span: .thisEvent)
+                    print("event insert")
+                } catch {
+                    print(error.localizedDescription)
                 }
             }
         }

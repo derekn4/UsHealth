@@ -78,7 +78,7 @@ class EventsCalendarManager: NSObject {
             // Auth denied or restricted, we should display a popup
             completion(.failure(.calendarAccessDeniedOrRestricted))
         @unknown default:
-            <#fatalError()#>
+            print("Unknown")
         }
     }
     
@@ -150,7 +150,7 @@ class EventsCalendarManager: NSObject {
             // Auth denied or restricted, we should display a popup
             completion(.failure(.calendarAccessDeniedOrRestricted))
         @unknown default:
-            <#fatalError()#>
+            print("Unknown")
         }
     }
     

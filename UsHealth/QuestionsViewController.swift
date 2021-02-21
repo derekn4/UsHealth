@@ -26,11 +26,6 @@ class QuestionsViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        let user = GIDSignIn.sharedInstance()?.currentUser
-//        let nav = segue.destination as! UINavigationController
-//        let destVC = segue.destination as! HomeViewController
-//        destVC.user = user
-        //let user = GIDSignIn.sharedInstance()?.currentUser
         if let nav = segue.destination as? UINavigationController,
             let destVC = nav.topViewController as? HomeViewController {
             destVC.user = self.user
