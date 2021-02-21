@@ -29,7 +29,17 @@ class LoginViewController: UIViewController {
     
     @objc private func userDidSignInGoogle(_ notification: Notification) {
         // Update screen after user successfully signed in
-        self.performSegue(withIdentifier: "directHome", sender: self)
+        let newUserRref = GIDSignIn.sharedInstance()?.hasPreviousSignIn()
+
+         /*Check if the automatic creation time of the user is equal to the last
+           sign in time (Which will be the first sign in time if it is indeed
+           their first sign in)*/
+
+        if newUserRref==true{
+            self.performSegue(withIdentifier: "directHome", sender: self)
+        } else {
+            self.performSegue(withIdentifier: "starterQs", sender: self)
+        }
     }
     /*
     // MARK: - Navigation

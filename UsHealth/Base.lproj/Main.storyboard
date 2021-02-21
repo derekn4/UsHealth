@@ -60,6 +60,7 @@
                     <connections>
                         <outlet property="signInButton" destination="C7V-Ui-4yr" id="P9j-Ih-5RT"/>
                         <segue destination="1JH-aj-EUE" kind="show" identifier="directHome" id="f5T-eb-9Zx"/>
+                        <segue destination="cUX-OO-IFa" kind="presentation" identifier="starterQs" id="pMD-fz-7xa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -117,7 +118,7 @@
             <objects>
                 <viewController id="cUX-OO-IFa" customClass="QuestionsViewController" customModule="UsHealth" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="HA8-pv-Q8c">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Questionnaire" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oLe-p9-qyM">
@@ -152,6 +153,7 @@
                     </view>
                     <connections>
                         <outlet property="submit" destination="MWN-pT-LOX" id="Vrp-K8-03a"/>
+                        <segue destination="1JH-aj-EUE" kind="show" identifier="postQsHome" id="hsc-pt-7jY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jgS-wh-B8k" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -159,6 +161,9 @@
             <point key="canvasLocation" x="828.98550724637687" y="-736.60714285714278"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="hsc-pt-7jY"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <image name="usHealthLogo2" width="216" height="216"/>
         <systemColor name="systemBackgroundColor">
