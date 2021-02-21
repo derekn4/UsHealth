@@ -93,18 +93,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
 
                     //self.email = (result?.user.email)!
                     print("User email: \(user.profile.email ?? "No Email")")
+                    
                 }
             }
             
-            let newUserRref = Auth.auth().currentUser?.metadata
-            
-            if newUserRref?.creationDate?.timeIntervalSince1970 == newUserRref?.lastSignInDate?.timeIntervalSince1970 {
-                print("Hello new user")
-                self.window?.rootViewController?.performSegue(withIdentifier: "starterQuestions", sender: self)
-            } else {
-                print("Welcome Back!")
-                self.window?.rootViewController?.performSegue(withIdentifier: "directHome", sender: self)
-            }
+//            let newUserRref = Auth.auth().currentUser?.metadata
+//
+//            if newUserRref?.creationDate?.timeIntervalSince1970 == newUserRref?.lastSignInDate?.timeIntervalSince1970 {
+//                print("Hello new user")
+//                self.window?.rootViewController?.performSegue(withIdentifier: "starterQuestions", sender: self)
+//            } else {
+//                print("Welcome Back!")
+//                self.window?.rootViewController?.performSegue(withIdentifier: "directHome", sender: self)
+//            }
         }
     
     }

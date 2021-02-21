@@ -61,7 +61,6 @@
                     <connections>
                         <outlet property="signInButton" destination="C7V-Ui-4yr" id="P9j-Ih-5RT"/>
                         <segue destination="1JH-aj-EUE" kind="show" identifier="directHome" id="acE-38-F9H"/>
-                        <segue destination="cUX-OO-IFa" kind="presentation" identifier="starterQuestions" id="uGl-PD-azr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -119,7 +118,7 @@
             <objects>
                 <viewController id="cUX-OO-IFa" customClass="QuestionsViewController" customModule="UsHealth" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="HA8-pv-Q8c">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Questionnaire" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oLe-p9-qyM">
@@ -163,7 +162,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="Bp4-HA-p5c"/>
+        <segue reference="acE-38-F9H"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="usHealthLogo2" width="216" height="216"/>
