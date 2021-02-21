@@ -21,9 +21,9 @@ class LoginViewController: UIViewController {
             
         }
         else {
-            GIDSignIn.sharedInstance()?.signIn()
+            GIDSignIn.sharedInstance()?.presentingViewController = self
+            //GIDSignIn.sharedInstance()?.signIn()
         }
-        GIDSignIn.sharedInstance()?.presentingViewController = self
     }
     
 

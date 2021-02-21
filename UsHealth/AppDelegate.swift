@@ -13,7 +13,6 @@ import GoogleSignIn
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
     
-    //let userDefault = UserDefaults()
     var window: UIWindow?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
@@ -22,6 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
 
         GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
         GIDSignIn.sharedInstance().delegate = self
+        
         return true
     }
     
@@ -35,67 +35,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
     }
         
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
-//        if let error = error {
-//            print(error.localizedDescription)
-//            return
-//        } else {
-//            let userId = user.userID                  // For client-side use only!
-//            let idToken = user.authentication.idToken // Safe to send to the server
-//            let fullName = user.profile.name
-//            let givenName = user.profile.givenName
-//            let familyName = user.profile.familyName
-//            let email = user.profile.email
-//            let str = email
-//            let int = (str?.count ?? 0)-9
-//            if (int>0){
-//                let NewStr = str?.dropFirst(int)
-//                print(NewStr)
-//                var checkIn = 0
-//            } else {return}
-//
-//            guard let authentication = user.authentication else {return}
-//            let credential = GoogleAuthProvider.credential(withIDToken: user.authentication.idToken, accessToken: user.authentication.accessToken)
-//
-//            Auth.auth().signIn(with: credential) { (result, error) in
-//                if error != nil {
-//                    print((error?.localizedDescription)!)
-//                    return
-//                }
-//
-//                else {
-//                    UserDefaults.standard.set(true, forKey: "userSignedIn")
-//                    NotificationCenter.default.post(name: NSNotification.Name("SIGNIN"),  object: nil)
-//                    UserDefaults.standard.synchronize()
-//
-//                    //self.email = (result?.user.email)!
-//                    print("User email: \(user.profile.email ?? "No Email")")
-//            }
-//
-//        }
-        if (error==nil) {
-            guard let user = user else {return}
-
-            guard let authentication = user.authentication else {return}
-
-            let credential = GoogleAuthProvider.credential(withIDToken: user.authentication.idToken, accessToken: user.authentication.accessToken)
-
-            //Signin to Firebase
-            Auth.auth().signIn(with: credential) { (result, error) in
-                if error != nil {
-                    print((error?.localizedDescription)!)
-                    return
-                }
-
-                else {
-                    UserDefaults.standard.set(true, forKey: "userSignedIn")
-                    NotificationCenter.default.post(name: NSNotification.Name("SIGNIN"),  object: nil)
-                    UserDefaults.standard.synchronize()
-
-                    //self.email = (result?.user.email)!
-                    print("User email: \(user.profile.email ?? "No Email")")
-                    
-                }
+        guard let user = user else {return}
+                
+        let credential = GoogleAuthProvider.credential(withIDToken: user.authentication.idToken,
+                                                       accessToken: user.authentication.accessToken)
+        //Signin to Firebase
+        Auth.auth().signIn(with: credential) { (result, error) in
+            if error != nil {
+                print((error?.localizedDescription)!)
+                return
             }
+
+            
+            NotificationCenter.default.post(name: NSNotification.Name("SIGNIN"),  object: nil)
+            
+            print(user.profile.email ?? "No Email")
+            //self.window?.rootViewController?.performSegue(withIdentifier: "directHome", sender: self)
+            
             
 //            let newUserRref = Auth.auth().currentUser?.metadata
 //
@@ -106,6 +62,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
 //                print("Welcome Back!")
 //                self.window?.rootViewController?.performSegue(withIdentifier: "directHome", sender: self)
 //            }
+            
         }
     
     }

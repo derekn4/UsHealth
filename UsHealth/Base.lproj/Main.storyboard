@@ -11,14 +11,13 @@
         <!--Login View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="LoginViewController" customModule="UsHealth" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LoginView" id="BYZ-38-t0r" customClass="LoginViewController" customModule="UsHealth" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C7V-Ui-4yr" customClass="GIDSignInButton">
                                 <rect key="frame" x="20" y="744" width="374" height="60"/>
-                                <color key="backgroundColor" red="0.66243025379999998" green="0.81152806669999999" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="58y-Ny-hgQ"/>
                                 </constraints>
@@ -60,7 +59,7 @@
                     </view>
                     <connections>
                         <outlet property="signInButton" destination="C7V-Ui-4yr" id="P9j-Ih-5RT"/>
-                        <segue destination="1JH-aj-EUE" kind="show" identifier="directHome" id="acE-38-F9H"/>
+                        <segue destination="1JH-aj-EUE" kind="show" identifier="directHome" id="f5T-eb-9Zx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -153,7 +152,6 @@
                     </view>
                     <connections>
                         <outlet property="submit" destination="MWN-pT-LOX" id="Vrp-K8-03a"/>
-                        <segue destination="1JH-aj-EUE" kind="show" identifier="postQsHome" id="Bp4-HA-p5c"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jgS-wh-B8k" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -161,9 +159,6 @@
             <point key="canvasLocation" x="828.98550724637687" y="-736.60714285714278"/>
         </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="acE-38-F9H"/>
-    </inferredMetricsTieBreakers>
     <resources>
         <image name="usHealthLogo2" width="216" height="216"/>
         <systemColor name="systemBackgroundColor">
