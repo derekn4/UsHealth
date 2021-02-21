@@ -23,23 +23,20 @@ class LoginViewController: UIViewController {
         else {
             GIDSignIn.sharedInstance()?.presentingViewController = self
             //GIDSignIn.sharedInstance()?.signIn()
+            
             NotificationCenter.default.addObserver(self, selector: #selector(userDidSignInGoogle(_:)), name: NSNotification.Name("SIGNIN"), object: nil)
+            NotificationCenter.default.addObserver(self, selector: #selector(newuserDidSignInGoogle(_:)), name: NSNotification.Name("newSIGNIN"), object: nil)
         }
     }
     
     @objc private func userDidSignInGoogle(_ notification: Notification) {
-        // Update screen after user successfully signed in
-        let newUserRref = GIDSignIn.sharedInstance()?.hasPreviousSignIn()
-
-         /*Check if the automatic creation time of the user is equal to the last
-           sign in time (Which will be the first sign in time if it is indeed
-           their first sign in)*/
-
-        if newUserRref==true{
-            self.performSegue(withIdentifier: "directHome", sender: self)
-        } else {
-            self.performSegue(withIdentifier: "starterQs", sender: self)
-        }
+        self.performSegue(withIdentifier: "directHome", sender: self)
+        //self.performSegue(withIdentifier: "starterQs", sender: self)
+    }
+    
+    @objc private func newuserDidSignInGoogle(_ notification: Notification) {
+        //self.performSegue(withIdentifier: "directHome", sender: self)
+        self.performSegue(withIdentifier: "starterQs", sender: self)
     }
     /*
     // MARK: - Navigation
