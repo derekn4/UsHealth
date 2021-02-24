@@ -60,11 +60,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
             }
             else {
                 
-//                self.userData?.email = user.profile.email
-//                self.userData?.userID = user.userID
-//                self.userData?.givenName = user.profile.givenName
-//                self.userData?.familyName = user.profile.familyName
-                
                 print(user.profile.email ?? "No Email")
                 
                 if let newUser: Bool = result?.additionalUserInfo?.isNewUser {

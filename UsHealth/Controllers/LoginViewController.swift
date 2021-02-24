@@ -25,7 +25,10 @@ class LoginViewController: UIViewController {
             //GIDSignIn.sharedInstance()?.signIn()
             
             NotificationCenter.default.addObserver(self, selector: #selector(userDidSignInGoogle(_:)), name: NSNotification.Name("SIGNIN"), object: nil)
+            
             NotificationCenter.default.addObserver(self, selector: #selector(newuserDidSignInGoogle(_:)), name: NSNotification.Name("newSIGNIN"), object: nil)
+//            UserDefaults.standard.set(true, forKey: "userLoggedIn")
+            
         }
     }
     
@@ -45,11 +48,13 @@ class LoginViewController: UIViewController {
             let user = GIDSignIn.sharedInstance()?.currentUser
             let destVC = segue.destination as! QuestionsViewController
             destVC.user = user
+            destVC.signin = GIDSignIn.sharedInstance()
         } else {
             let user = GIDSignIn.sharedInstance()?.currentUser
             if let nav = segue.destination as? UINavigationController,
                 let destVC = nav.topViewController as? HomeViewController {
                 destVC.user = user
+                destVC.signin = GIDSignIn.sharedInstance()
             }
         }
     }

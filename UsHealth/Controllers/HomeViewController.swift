@@ -13,6 +13,7 @@ import EventKit
 class HomeViewController: UITableViewController {
     
     var user: GIDGoogleUser!
+    var signin: GIDSignIn!
     //let eventsCalendarManager: EventCalendarManager!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,11 +25,14 @@ class HomeViewController: UITableViewController {
         let firebaseAuth = Auth.auth()
         do {
             try firebaseAuth.signOut()
+            signin.disconnect()
             print("Log Out success!")
         } catch let signOutError as NSError {
             print("Error Signing out: %@", signOutError)
         }
+        NotificationCenter.default.post(name: NSNotification.Name("signOut"),  object: nil)
         self.dismiss(animated: true, completion: nil)
+        //UserDefaults.standard.set(false, forKey: "userLoggedIn")
     }
     
     //    override func numberofSections(in tableView: UITableView) -> Int {
