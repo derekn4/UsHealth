@@ -7,5 +7,7 @@ target 'UsHealth' do
 
   # Pods for UsHealth
 pod 'Firebase/Auth'
+pod 'Firebase/Core'
+pod 'Firebase/Database'
 pod 'GoogleSignIn'
 end
