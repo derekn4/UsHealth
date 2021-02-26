@@ -10,4 +10,6 @@ pod 'Firebase/Auth'
 pod 'Firebase/Core'
 pod 'Firebase/Database'
 pod 'GoogleSignIn'
+pod 'MBCircularProgressBar'
+
 end

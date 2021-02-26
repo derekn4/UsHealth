@@ -9,16 +9,29 @@ import UIKit
 import GoogleSignIn
 import FirebaseAuth
 import EventKit
+import MBCircularProgressBar
 
 class HomeViewController: UITableViewController {
     
     var user: GIDGoogleUser!
     var signin: GIDSignIn!
+    
+    @IBOutlet weak var progressBar: MBCircularProgressBarView!
+    @IBOutlet weak var progressInfo: UILabel!
+    
     //let eventsCalendarManager: EventCalendarManager!
     override func viewDidLoad() {
         super.viewDidLoad()
         print(user.profile.familyName as Any)
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        UIView.animate(withDuration: 10.0){
+            //get value from firebase Database
+            self.progressBar.value = 60
+        }
+        self.progressInfo.text = "You are \(self.progressBar.value)% complete!"
     }
     
     @IBAction func onLogout(_ sender: Any) {
