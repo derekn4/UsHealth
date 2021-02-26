@@ -19,6 +19,17 @@ class HomeViewController: UITableViewController {
     @IBOutlet weak var progressBar: MBCircularProgressBarView!
     @IBOutlet weak var progressInfo: UILabel!
     
+    //times that many people work out at
+    let workoutTimes = ["06:00:00", "10:00:00", "14:00:00", "17:00:00", "19:00:00", "18:00:00"]
+    
+    let formatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.timeZone = .current
+        formatter.locale = .current
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        return formatter
+    }()
+    
     //let eventsCalendarManager: EventCalendarManager!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,7 +69,22 @@ class HomeViewController: UITableViewController {
 
     @IBAction func AddEventButton(_ sender: Any) {
         print("THIS SHOULD ADD EVENTS")
-        self.check_permission(start_date: Date(), event_name: "Testing")
+//        var dateComponents = DateComponents()
+//        dateComponents.year = 2021
+//        dateComponents.month = 2
+//        dateComponents.day = 26
+//        dateComponents.timeZone = TimeZone(abbreviation: "PST")
+//        dateComponents.hour = 3
+//        dateComponents.minute = 0
+        let date = Date()
+        let calendarDate = Calendar.current.dateComponents([.day, .month, .year], from: date)
+        let year = calendarDate.year!
+        let month = calendarDate.month!
+        var day = String(Int(calendarDate.day!) + 1)
+//        print(year)
+//        print(month)
+        self.check_permission(start_date: formatter.date(from: "\(year)-\(month)-\(day) 16:00:00") ?? Date(), event_name: "Testing")
+        
 //        let eventsCalendarManager: EventsCalendarManager!
 //        let event_ = EKEvent.init()
 //        event_.title = "MyLocation"
@@ -88,7 +114,7 @@ class HomeViewController: UITableViewController {
                 if status {
                     self.insert_event(store: event_store, start_date: start_date, event_name: event_name)
                 } else {
-                    print(error?.localizedDescription)
+                    print(error?.localizedDescription as Any)
                 }
             }
         case .restricted:

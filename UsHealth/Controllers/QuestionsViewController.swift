@@ -51,6 +51,7 @@ class QuestionsViewController: UIViewController, UIPickerViewDelegate {
         print("Finished questions, go to Home")
         //print(user.profile?.email! as Any)
         
+        //add an empty object for progress?
         let object: [String: Any] = [
             "CurrentWeight": CurrentWeightTextField.text! as NSString,
             "GoalWeight": GoalWeightTextField.text! as NSString,
