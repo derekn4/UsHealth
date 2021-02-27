@@ -121,23 +121,41 @@
                             <color key="backgroundColor" red="0.98039215686274506" green="0.95294117647058818" blue="0.8666666666666667" alpha="1" colorSpace="calibratedRGB"/>
                         </view>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="HiA-hp-425">
-                                <rect key="frame" x="0.0" y="241" width="414" height="43.5"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="workoutCell" rowHeight="83" id="HiA-hp-425" customClass="WorkoutCell" customModule="UsHealth" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="241" width="414" height="83"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="HiA-hp-425" id="azW-ti-xYW">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="83"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Workouts Go Here" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t1x-23-SAY">
-                                            <rect key="frame" x="37" y="11" width="175" height="27"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                                            <nil key="textColor"/>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icons8-unchecked-checkbox-50" translatesAutoresizingMaskIntoConstraints="NO" id="8M9-qh-QJx">
+                                            <rect key="frame" x="20" y="22.5" width="38" height="38"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="38" id="4G8-00-UDc"/>
+                                                <constraint firstAttribute="height" constant="38" id="7xA-Cq-GyU"/>
+                                            </constraints>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Workout" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cSd-yD-Wne">
+                                            <rect key="frame" x="68" y="22.5" width="316" height="38"/>
+                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                                            <color key="textColor" red="0.17254901959999999" green="0.21960784310000001" blue="0.30196078430000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
+                                    <constraints>
+                                        <constraint firstItem="8M9-qh-QJx" firstAttribute="centerY" secondItem="cSd-yD-Wne" secondAttribute="centerY" id="1UB-JU-NYg"/>
+                                        <constraint firstItem="cSd-yD-Wne" firstAttribute="leading" secondItem="8M9-qh-QJx" secondAttribute="trailing" constant="10" id="7kE-eJ-D4Q"/>
+                                        <constraint firstItem="cSd-yD-Wne" firstAttribute="height" secondItem="8M9-qh-QJx" secondAttribute="height" id="X5b-37-ADD"/>
+                                        <constraint firstItem="8M9-qh-QJx" firstAttribute="leading" secondItem="azW-ti-xYW" secondAttribute="leadingMargin" id="X8I-LS-EQF"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="cSd-yD-Wne" secondAttribute="trailing" constant="10" id="mP0-bw-H5O"/>
+                                        <constraint firstItem="cSd-yD-Wne" firstAttribute="centerY" secondItem="azW-ti-xYW" secondAttribute="centerY" id="w4R-Jo-A7r"/>
+                                    </constraints>
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" red="0.98039215686274506" green="0.95294117647058818" blue="0.8666666666666667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <connections>
+                                    <outlet property="checkMarkImage" destination="8M9-qh-QJx" id="QQF-cb-7gX"/>
+                                    <outlet property="workoutLabel" destination="cSd-yD-Wne" id="iEm-SI-Gat"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -386,6 +404,7 @@
         <segue reference="PtN-MQ-RSr"/>
     </inferredMetricsTieBreakers>
     <resources>
+        <image name="icons8-unchecked-checkbox-50" width="50" height="50"/>
         <image name="usHealthLogo2" width="216" height="216"/>
     </resources>
 </document>

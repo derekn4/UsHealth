@@ -19,6 +19,8 @@ class HomeViewController: UITableViewController {
     @IBOutlet weak var progressBar: MBCircularProgressBarView!
     @IBOutlet weak var progressInfo: UILabel!
     
+    
+
     //times that many people work out at
     let workoutTimes = ["06:00:00", "10:00:00", "14:00:00", "17:00:00", "19:00:00", "18:00:00"]
     let lightWorkouts = ["lw1"]
@@ -36,7 +38,7 @@ class HomeViewController: UITableViewController {
     //let eventsCalendarManager: EventCalendarManager!
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(user.profile.familyName as Any)
+        //print(user.profile.familyName as Any)
         // Do any additional setup after loading the view.
     }
     
@@ -62,51 +64,41 @@ class HomeViewController: UITableViewController {
         //UserDefaults.standard.set(false, forKey: "userLoggedIn")
     }
     
-    //    override func numberofSections(in tableView: UITableView) -> Int {
-//        return 0
-//    }
+    //TableView Functions
+    override func  tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "workoutCell", for: indexPath) as! WorkoutCell
+        cell.workoutLabel.text = "Light Jog"
+        cell.checkMarkImage.image = UIImage(named: "icons8-unchecked-checkbox-50")
+        return cell
+    }
     
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        guard let cell = tableView.cellForRow(at: indexPath) as? WorkoutCell else {return}
+        
+        cell.checkMarkImage.image = UIImage(named: "icons8-checked-checkbox-50")
     }
 
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        return 5
+    }
+
+    
+    //Calendar Functions
     @IBAction func AddEventButton(_ sender: Any) {
         print("THIS SHOULD ADD EVENTS")
-//        var dateComponents = DateComponents()
-//        dateComponents.year = 2021
-//        dateComponents.month = 2
-//        dateComponents.day = 26
-//        dateComponents.timeZone = TimeZone(abbreviation: "PST")
-//        dateComponents.hour = 3
-//        dateComponents.minute = 0
         let date = Date()
         let calendarDate = Calendar.current.dateComponents([.day, .month, .year], from: date)
         let year = calendarDate.year!
         let month = calendarDate.month!
-        var day = String(Int(calendarDate.day!) + 1)
-//        print(year)
-//        print(month)
+        let day = String(Int(calendarDate.day!) + 1) //probably change to var to be able to change to days of the week
         self.check_permission(start_date: formatter.date(from: "\(year)-\(month)-\(day) 16:00:00") ?? Date(), event_name: "Testing")
         
-//        let eventsCalendarManager: EventsCalendarManager!
-//        let event_ = EKEvent.init()
-//        event_.title = "MyLocation"
-//        eventsCalendarManager.addEventToCalendar(event: event_) { (result) in
-//            switch result {
-//            case .success:
-//                self.view?.showEventAddedToCalendarAlert()
-//            case .failure(let error):
-//                switch error {
-//                case .calendarAccessDeniedOrRestricted:
-//                    self.view?.showSettingsAlert()
-//                case .eventNotAddedToCalendar:
-//                    self.view?.showEventNotAddedToCalendarAlert()
-//                case .eventAlreadyExistsInCalendar:
-//                    self.view?.showEventAlreadyExistsInCalendarAlert()
-//                default: ()
-//                }
-//            }
-//        }
     }
     
     func check_permission(start_date: Date, event_name: String) {

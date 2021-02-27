@@ -19,6 +19,7 @@
 		F2368BB325E1CFDD00F0E4FA /* QuestionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2368BB225E1CFDD00F0E4FA /* QuestionsViewController.swift */; };
 		F2368BCB25E1FF7600F0E4FA /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2368BCA25E1FF7600F0E4FA /* HomeViewController.swift */; };
 		F2368BE025E203CD00F0E4FA /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2368BDF25E203CD00F0E4FA /* UserInfo.swift */; };
+		F2F5B03925EAFB8500B3AC05 /* WorkoutCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2F5B03825EAFB8500B3AC05 /* WorkoutCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +38,7 @@
 		F2368BB225E1CFDD00F0E4FA /* QuestionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionsViewController.swift; sourceTree = "<group>"; };
 		F2368BCA25E1FF7600F0E4FA /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		F2368BDF25E203CD00F0E4FA /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
+		F2F5B03825EAFB8500B3AC05 /* WorkoutCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutCell.swift; sourceTree = "<group>"; };
 		FDA262367F8DA98FA29E3F81 /* Pods_UsHealth.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UsHealth.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -100,6 +102,7 @@
 				F2368B9425E1BF4B00F0E4FA /* Info.plist */,
 				F2368BDF25E203CD00F0E4FA /* UserInfo.swift */,
 				3C41ACE225E211DF00BD519C /* EventCalendarManager.swift */,
+				F2F5B03825EAFB8500B3AC05 /* WorkoutCell.swift */,
 			);
 			path = UsHealth;
 			sourceTree = "<group>";
@@ -254,6 +257,7 @@
 				F2368BB325E1CFDD00F0E4FA /* QuestionsViewController.swift in Sources */,
 				F2368BE025E203CD00F0E4FA /* UserInfo.swift in Sources */,
 				F2368B8925E1BF4A00F0E4FA /* SceneDelegate.swift in Sources */,
+				F2F5B03925EAFB8500B3AC05 /* WorkoutCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
