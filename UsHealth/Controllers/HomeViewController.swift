@@ -21,6 +21,9 @@ class HomeViewController: UITableViewController {
     
     //times that many people work out at
     let workoutTimes = ["06:00:00", "10:00:00", "14:00:00", "17:00:00", "19:00:00", "18:00:00"]
+    let lightWorkouts = ["lw1"]
+    let medWorkouts = ["mw1"]
+    let hardWorkouts = ["hw1"]
     
     let formatter: DateFormatter = {
         let formatter = DateFormatter()
