@@ -51,16 +51,20 @@ class QuestionsViewController: UIViewController, UIPickerViewDelegate {
         print("Finished questions, go to Home")
         //print(user.profile?.email! as Any)
         
+        let feetToInches: Int? = Int(FeetTextField.text!)
+        let InchesToInt: Int? = Int(InchesTextField.text!)
+        let totalHeight = feetToInches! * 12 + InchesToInt!
+                
         //add an empty object for progress?
         let object: [String: Any] = [
             "CurrentWeight": CurrentWeightTextField.text! as NSString,
             "GoalWeight": GoalWeightTextField.text! as NSString,
             "Age": AgeTextField.text! as NSString,
-            "Feet": FeetTextField.text! as NSString,
-            "Inches": FeetTextField.text! as NSString,
+            "Height": totalHeight,
             "Intensity": IntensityData[IntensityPicker.selectedRow(inComponent: 0)] as NSString,
             "WorkoutType": WorkoutTypeData[WorkoutPicker.selectedRow(inComponent: 0)]  as NSString,
-            "NumWorkoutsWeekly": WorkoutNumData[WorkoutNumPicker.selectedRow(inComponent: 0)] as NSString
+            "NumWorkoutsWeekly": WorkoutNumData[WorkoutNumPicker.selectedRow(inComponent: 0)] as NSString,
+            "Progress": 0
         ]
         database.child("users").child(user.userID!).setValue(object)
         self.performSegue(withIdentifier: "postQsHome", sender: self)
