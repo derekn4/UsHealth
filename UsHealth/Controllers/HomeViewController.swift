@@ -44,7 +44,7 @@ class HomeViewController: UITableViewController {
         //print(user.profile.familyName as Any)
         // Do any additional setup after loading the view.
         self.progressBar.value = CGFloat(self.progress)
-        print(user.userID)
+        //print(user.userID)
         self.ref.child("users/\(user.userID ?? "")/progress").getData { (error, snapshot) in
             if let error = error {
                 print("Error getting data \(error)")
@@ -82,6 +82,7 @@ class HomeViewController: UITableViewController {
         //UserDefaults.standard.set(false, forKey: "userLoggedIn")
     }
     
+    //UPDATE USER PROGRESS IN FIREBASE
     //TableView Functions
     override func  tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "workoutCell", for: indexPath) as! WorkoutCell
@@ -101,7 +102,8 @@ class HomeViewController: UITableViewController {
             self.progressBar.value = self.progressBar.value + 10
         }
         self.progressInfo.text = "You are \(self.progressBar.value)% complete!"
-        //self.ref.child("users/\(user.userID ?? "")/progress")
+        
+        //UPDATE USER PROGRESS IN FIREBASE
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
