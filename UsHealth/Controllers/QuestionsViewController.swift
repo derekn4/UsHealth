@@ -38,13 +38,9 @@ class QuestionsViewController: UIViewController, UIPickerViewDelegate {
         WorkoutNumPicker.dataSource = self
         WorkoutNumPicker.delegate = self
         // Do any additional setup after loading the view.
-        
-//        NotificationCenter.default.addObserver(self, selector: #selector(signOutUser(_:)), name: NSNotification.Name("signOut"), object: nil)
+
     }
 
-//    @objc private func signOutUser(_ notification: Notification) {
-//        self.dismiss(animated: true, completion: nil)
-//    }
 
     
     @IBAction func sendToDash(_ sender: Any) {

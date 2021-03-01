@@ -10,6 +10,7 @@ import GoogleSignIn
 import FirebaseAuth
 import EventKit
 import MBCircularProgressBar
+import FirebaseDatabase
 
 class HomeViewController: UITableViewController {
     
@@ -20,13 +21,15 @@ class HomeViewController: UITableViewController {
     @IBOutlet weak var progressInfo: UILabel!
     
     
-
     //times that many people work out at
     let workoutTimes = ["06:00:00", "10:00:00", "14:00:00", "17:00:00", "19:00:00", "18:00:00"]
     let lightWorkouts = ["lw1"]
     let medWorkouts = ["mw1"]
     let hardWorkouts = ["hw1"]
     
+    private let ref = Database.database().reference()
+    var progress: Int = 0
+
     let formatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.timeZone = .current
@@ -40,12 +43,27 @@ class HomeViewController: UITableViewController {
         super.viewDidLoad()
         //print(user.profile.familyName as Any)
         // Do any additional setup after loading the view.
+        self.progressBar.value = CGFloat(self.progress)
+        print(user.userID)
+        self.ref.child("users/\(user.userID ?? "")/progress").getData { (error, snapshot) in
+            if let error = error {
+                print("Error getting data \(error)")
+            }
+            else if snapshot.exists() {
+                print("Got data \(snapshot.value!)")
+                self.progress = snapshot.value as! Int
+            }
+            else {
+                print("No data available")
+            }
+        }
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        UIView.animate(withDuration: 10.0){
+        UIView.animate(withDuration: 30.0){
             //get value from firebase Database
-            self.progressBar.value = 60
+            self.progressBar.value = CGFloat(self.progress)
         }
         self.progressInfo.text = "You are \(self.progressBar.value)% complete!"
     }
@@ -77,6 +95,13 @@ class HomeViewController: UITableViewController {
         guard let cell = tableView.cellForRow(at: indexPath) as? WorkoutCell else {return}
         
         cell.checkMarkImage.image = UIImage(named: "icons8-checked-checkbox-50")
+        self.progress = self.progress + 10
+        UIView.animate(withDuration: 1.0){
+            //get value from firebase Database
+            self.progressBar.value = self.progressBar.value + 10
+        }
+        self.progressInfo.text = "You are \(self.progressBar.value)% complete!"
+        //self.ref.child("users/\(user.userID ?? "")/progress")
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
