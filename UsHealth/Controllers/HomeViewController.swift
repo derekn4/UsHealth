@@ -28,8 +28,18 @@ class HomeViewController: UITableViewController {
     let hardWorkouts = ["hw1"]
     
     private let ref = Database.database().reference()
-    var progress: Int = self.getProgress()
+    var progress = 0
     
+    private func retrieveProgress() {
+        self.ref.child("users/\(user.userID ?? "")").observeSingleEvent(of: .value, with: {(snapshot) in
+            let value = snapshot.value as? NSDictionary
+            let prog = value?["progress"] as? Int ?? 0
+            self.progress = prog
+        }) { (error) in
+            print(error.localizedDescription)
+        }
+        self.progressBar.reloadInputViews()
+    }
     
     let formatter: DateFormatter = {
         let formatter = DateFormatter()
@@ -39,62 +49,25 @@ class HomeViewController: UITableViewController {
         return formatter
     }()
     
-    private func getProgress() -> Int {
-        var temp: Int = 0
-        self.ref.child("users/\(user.userID ?? "")/progress").getData { (error, snapshot) in
-            if let error = error {
-                print("Error getting data \(error)")
-            }
-            else if snapshot.exists() {
-                print("Got data \(snapshot.value!)")
-                temp = snapshot.value as! Int
-            }
-            else {
-                print("No data available")
-            }
-        }
-        return temp
-    }
-    
-    //let eventsCalendarManager: EventCalendarManager!
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //print(user.profile.familyName as Any)
         // Do any additional setup after loading the view.
-        //self.progressBar.value = CGFloat(self.progress)
-        //print(user.userID)
-        self.ref.child("users/\(user.userID ?? "")/progress").getData { (error, snapshot) in
-            if let error = error {
-                print("Error getting data \(error)")
-            }
-            else if snapshot.exists() {
-                print("Got data \(snapshot.value!)")
-                self.progress = snapshot.value as! Int
-                self.progressBar.value = CGFloat(self.progress)
-            }
-            else {
-                print("No data available")
-            }
-        }
+        self.progressBar.value = 0
         
+        //NEXT STEPS:
+            //Immediately set calendar dates from arrays above
+            //schedule into Apple Calendar
+            //set row labels as Workouts + length of time?
+        
+        //TODO:
+            //Check if date is start of week
+            //Get Workout data from Database OR hard code workouts (LOL)
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        self.ref.child("users/\(user.userID ?? "")/progress").getData { (error, snapshot) in
-            if let error = error {
-                print("Error getting data \(error)")
-            }
-            else if snapshot.exists() {
-                print("Got data \(snapshot.value!)")
-                self.progress = snapshot.value as! Int
-                
-            }
-            else {
-                print("No data available")
-            }
-        }
-        
+        retrieveProgress()
+        print("willAppear \(self.progress)")
         UIView.animate(withDuration: 1.0){
             //get value from firebase Database
             self.progressBar.value = CGFloat(self.progress)
@@ -113,7 +86,6 @@ class HomeViewController: UITableViewController {
         }
         NotificationCenter.default.post(name: NSNotification.Name("signOut"),  object: nil)
         self.dismiss(animated: true, completion: nil)
-        //UserDefaults.standard.set(false, forKey: "userLoggedIn")
     }
     
     //UPDATE USER PROGRESS IN FIREBASE
@@ -131,33 +103,30 @@ class HomeViewController: UITableViewController {
         
         cell.checkMarkImage.image = UIImage(named: "icons8-checked-checkbox-50")
         
-        //var curr_progress = 0
-        
-        self.ref.child("users/\(user.userID!)/progress").getData { (error, snapshot) in
-            if let error = error {
-                print("Error getting data \(error)")
-            }
-            else if snapshot.exists() {
-                print("Got data \(snapshot.value!)")
-                self.progress  = snapshot.value! as! Int
-            }
-            else {
-                print("No data available")
-            }
+        self.progress = self.progress + 10
+        if self.progress < 100 {
+            self.progressInfo.text = "You are \(self.progress)% complete!"
+            let childUpdates = ["/users/\(self.user.userID!)/progress": self.progress]
+            self.ref.updateChildValues(childUpdates)
         }
-        
-        
+        else if self.progress == 100{
+            self.progressInfo.text = "You Finished! Great Work!"
+            let childUpdates = ["/users/\(self.user.userID!)/progress": self.progress]
+            self.ref.updateChildValues(childUpdates)
+        }
+        else {
+            //Wait until end of Week, then reset progress to 0\
+            self.progress = self.progress - 100
+            self.progressInfo.text = "You are \(self.progress)% complete!"
+            let childUpdates = ["/users/\(self.user.userID!)/progress": self.progress]
+            self.ref.updateChildValues(childUpdates)
+            
+        }
         UIView.animate(withDuration: 1.0){
-            self.progress = self.progress + 10
             //get value from firebase Database
             self.progressBar.value = CGFloat(self.progress)
             
         }
-        self.progressInfo.text = "You are \(self.progressBar.value)% complete!"
-        let childUpdates = ["/users/\(self.user.userID!)/progress": self.progress]
-        self.ref.updateChildValues(childUpdates)
-       
-        //UPDATE USER PROGRESS IN FIREBASE
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -169,18 +138,28 @@ class HomeViewController: UITableViewController {
         return 5
     }
 
+
+    @IBAction func RefreshView(_ sender: Any) {
+        print("This shoudl refresh the ProgressBar")
+        retrieveProgress()
+        print("refresh \(self.progress)")
+        UIView.animate(withDuration: 1.0){
+            //get value from firebase Database
+            self.progressBar.value = CGFloat(self.progress)
+        }
+        self.progressInfo.text = "You are \(self.progress)% complete!"
+    }
     
     //Calendar Functions
-    @IBAction func AddEventButton(_ sender: Any) {
-        print("THIS SHOULD ADD EVENTS")
-        let date = Date()
-        let calendarDate = Calendar.current.dateComponents([.day, .month, .year], from: date)
-        let year = calendarDate.year!
-        let month = calendarDate.month!
-        let day = String(Int(calendarDate.day!) + 1) //probably change to var to be able to change to days of the week
-        self.check_permission(start_date: formatter.date(from: "\(year)-\(month)-\(day) 16:00:00") ?? Date(), event_name: "Testing")
-        
-    }
+        //KEEP THIS TO REMEMBER HOW TO ADD EVENTS AT SPECIFIC TIMES
+//        print("THIS SHOULD ADD EVENTS")
+//        let date = Date()
+//        let calendarDate = Calendar.current.dateComponents([.day, .month, .year], from: date)
+//        let year = calendarDate.year!
+//        let month = calendarDate.month!
+//        let day = String(Int(calendarDate.day!) + 1) //probably change to var to be able to change to days of the week
+//        self.check_permission(start_date: formatter.date(from: "\(year)-\(month)-\(day) 16:00:00") ?? Date(), event_name: "Testing")
+    //}
     
     func check_permission(start_date: Date, event_name: String) {
         let event_store = EKEventStore()
@@ -214,7 +193,6 @@ class HomeViewController: UITableViewController {
                 event.startDate = start_date
                 event.title = event_name
                 event.endDate = event.startDate.addingTimeInterval(60*30)
-//                event.recurrenceRules = [EKRecurrenceRule(recurrenceWith)]
                 let reminder1 = EKAlarm(relativeOffset: -60)
                 let reminder2 = EKAlarm(relativeOffset: -30)
                 event.alarms = [reminder1, reminder2]

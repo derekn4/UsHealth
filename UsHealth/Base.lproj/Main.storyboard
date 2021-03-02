@@ -169,9 +169,9 @@
                                 <action selector="onLogout:" destination="ITc-eE-Kd2" id="C55-7Z-3Vm"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="+" id="QeR-9J-PPD">
+                        <barButtonItem key="rightBarButtonItem" title="refresh" image="arrow.clockwise" catalog="system" id="QeR-9J-PPD">
                             <connections>
-                                <action selector="AddEventButton:" destination="ITc-eE-Kd2" id="i8o-NO-9se"/>
+                                <action selector="RefreshView:" destination="ITc-eE-Kd2" id="GDc-Md-tYZ"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -404,6 +404,7 @@
         <segue reference="PtN-MQ-RSr"/>
     </inferredMetricsTieBreakers>
     <resources>
+        <image name="arrow.clockwise" catalog="system" width="115" height="128"/>
         <image name="icons8-unchecked-checkbox-50" width="50" height="50"/>
         <image name="usHealthLogo2" width="216" height="216"/>
     </resources>
