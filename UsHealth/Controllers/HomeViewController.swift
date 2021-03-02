@@ -28,8 +28,9 @@ class HomeViewController: UITableViewController {
     let hardWorkouts = ["hw1"]
     
     private let ref = Database.database().reference()
-    var progress: Int = 0
-
+    var progress: Int = self.getProgress()
+    
+    
     let formatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.timeZone = .current
@@ -38,12 +39,30 @@ class HomeViewController: UITableViewController {
         return formatter
     }()
     
+    private func getProgress() -> Int {
+        var temp: Int = 0
+        self.ref.child("users/\(user.userID ?? "")/progress").getData { (error, snapshot) in
+            if let error = error {
+                print("Error getting data \(error)")
+            }
+            else if snapshot.exists() {
+                print("Got data \(snapshot.value!)")
+                temp = snapshot.value as! Int
+            }
+            else {
+                print("No data available")
+            }
+        }
+        return temp
+    }
+    
     //let eventsCalendarManager: EventCalendarManager!
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         //print(user.profile.familyName as Any)
         // Do any additional setup after loading the view.
-        self.progressBar.value = CGFloat(self.progress)
+        //self.progressBar.value = CGFloat(self.progress)
         //print(user.userID)
         self.ref.child("users/\(user.userID ?? "")/progress").getData { (error, snapshot) in
             if let error = error {
@@ -52,6 +71,7 @@ class HomeViewController: UITableViewController {
             else if snapshot.exists() {
                 print("Got data \(snapshot.value!)")
                 self.progress = snapshot.value as! Int
+                self.progressBar.value = CGFloat(self.progress)
             }
             else {
                 print("No data available")
@@ -61,7 +81,21 @@ class HomeViewController: UITableViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        UIView.animate(withDuration: 30.0){
+        self.ref.child("users/\(user.userID ?? "")/progress").getData { (error, snapshot) in
+            if let error = error {
+                print("Error getting data \(error)")
+            }
+            else if snapshot.exists() {
+                print("Got data \(snapshot.value!)")
+                self.progress = snapshot.value as! Int
+                
+            }
+            else {
+                print("No data available")
+            }
+        }
+        
+        UIView.animate(withDuration: 1.0){
             //get value from firebase Database
             self.progressBar.value = CGFloat(self.progress)
         }
@@ -96,13 +130,33 @@ class HomeViewController: UITableViewController {
         guard let cell = tableView.cellForRow(at: indexPath) as? WorkoutCell else {return}
         
         cell.checkMarkImage.image = UIImage(named: "icons8-checked-checkbox-50")
-        self.progress = self.progress + 10
+        
+        //var curr_progress = 0
+        
+        self.ref.child("users/\(user.userID!)/progress").getData { (error, snapshot) in
+            if let error = error {
+                print("Error getting data \(error)")
+            }
+            else if snapshot.exists() {
+                print("Got data \(snapshot.value!)")
+                self.progress  = snapshot.value! as! Int
+            }
+            else {
+                print("No data available")
+            }
+        }
+        
+        
         UIView.animate(withDuration: 1.0){
+            self.progress = self.progress + 10
             //get value from firebase Database
-            self.progressBar.value = self.progressBar.value + 10
+            self.progressBar.value = CGFloat(self.progress)
+            
         }
         self.progressInfo.text = "You are \(self.progressBar.value)% complete!"
-        
+        let childUpdates = ["/users/\(self.user.userID!)/progress": self.progress]
+        self.ref.updateChildValues(childUpdates)
+       
         //UPDATE USER PROGRESS IN FIREBASE
     }
 
