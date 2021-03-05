@@ -11,6 +11,7 @@ import FirebaseAuth
 import EventKit
 import MBCircularProgressBar
 import FirebaseDatabase
+import Firebase
 
 class HomeViewController: UITableViewController {
     
@@ -23,12 +24,14 @@ class HomeViewController: UITableViewController {
     
     //times that many people work out at
     let workoutTimes = ["06:00:00", "10:00:00", "14:00:00", "17:00:00", "19:00:00", "18:00:00"]
-    let lightWorkouts = ["lw1"]
-    let medWorkouts = ["mw1"]
-    let hardWorkouts = ["hw1"]
+    let workouts = ["HIIT", "Walk", "Jog", "Swim"]
     
     private let ref = Database.database().reference()
+    var databaseHandle: DatabaseHandle = 0
     var progress = 0
+    var userData = [String]()
+    var workoutFreq: Int = 0
+    var firstLoad = 0
     
     private func retrieveProgress() {
         self.ref.child("users/\(user.userID ?? "")").observeSingleEvent(of: .value, with: {(snapshot) in
@@ -54,6 +57,8 @@ class HomeViewController: UITableViewController {
         
         // Do any additional setup after loading the view.
         self.progressBar.value = 0
+
+        }
         
         //NEXT STEPS:
             //Immediately set calendar dates from arrays above
@@ -63,16 +68,41 @@ class HomeViewController: UITableViewController {
         //TODO:
             //Check if date is start of week
             //Get Workout data from Database OR hard code workouts (LOL)
-    }
+    
     
     override func viewWillAppear(_ animated: Bool) {
-        retrieveProgress()
-        print("willAppear \(self.progress)")
-        UIView.animate(withDuration: 1.0){
-            //get value from firebase Database
-            self.progressBar.value = CGFloat(self.progress)
-        }
-        self.progressInfo.text = "You are \(self.progressBar.value)% complete!"
+        //retrieveProgress()
+        let db = Database.database().reference().child("users")
+                db.observe(.value) { (snapshot) in
+                    // Parse database for what you want. It's all in a giant dictionary
+                    let val = snapshot.value as! NSDictionary
+                    
+                    
+                    // Find what you need
+                    for v in val
+                    {
+                        if v.key as! String == self.user.userID!{
+                            let dict = v.value as! NSDictionary
+                            //print(dict)
+                            //print(dict["progress"]!)
+                            let num = (dict["NumWorkoutsWeekly"] as? NSString)?.integerValue
+                            self.progress = dict["progress"] as! Int
+                            self.workoutFreq = num ?? 5
+                            //let ID = self.user.userID!
+                        }
+                    }
+                    UIView.animate(withDuration: 1.0){
+                        //get value from firebase Database
+                        self.progressBar.value = CGFloat(self.progress)
+                    }
+                    self.progressInfo.text = "You are \(self.progressBar.value)% complete!"
+                    // Reload your tableview
+                    if self.firstLoad == 0 {
+                        self.tableView.reloadData()
+                        self.firstLoad = self.firstLoad + 1
+                    }
+//                    print("should have reload")
+                }
     }
     
     @IBAction func onLogout(_ sender: Any) {
@@ -134,8 +164,8 @@ class HomeViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        return 5
+        //self.ref.child("users/\(user.userID ?? "")/NumWorkoutsWeekly")
+        return self.workoutFreq
     }
 
 
@@ -205,4 +235,5 @@ class HomeViewController: UITableViewController {
             }
         }
     }
+
 }

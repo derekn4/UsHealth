@@ -8,10 +8,12 @@
 import UIKit
 import Firebase
 import GoogleSignIn
+import FirebaseDatabase
 
 class LoginViewController: UIViewController {
 
     @IBOutlet var signInButton: GIDSignInButton!
+    //private let ref = Database.database().reference()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,6 +57,7 @@ class LoginViewController: UIViewController {
                 let destVC = nav.topViewController as? HomeViewController {
                 destVC.user = user
                 destVC.signin = GIDSignIn.sharedInstance()
+                
             }
         }
     }
