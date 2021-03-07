@@ -27,11 +27,11 @@ class HomeViewController: UITableViewController {
     let workouts = ["HIIT", "Walk", "Jog", "Swim"]
     
     private let ref = Database.database().reference()
-    var databaseHandle: DatabaseHandle = 0
     var progress = 0
-    var userData = [String]()
     var workoutFreq: Int = 0
     var firstLoad = 0
+    var setWorkouts = [String]()
+    var firstCalendar = 0
     
     private func retrieveProgress() {
         self.ref.child("users/\(user.userID ?? "")").observeSingleEvent(of: .value, with: {(snapshot) in
@@ -58,7 +58,7 @@ class HomeViewController: UITableViewController {
         // Do any additional setup after loading the view.
         self.progressBar.value = 0
 
-        }
+    }
         
         //NEXT STEPS:
             //Immediately set calendar dates from arrays above
@@ -88,6 +88,10 @@ class HomeViewController: UITableViewController {
                             let num = (dict["NumWorkoutsWeekly"] as? NSString)?.integerValue
                             self.progress = dict["progress"] as! Int
                             self.workoutFreq = num ?? 5
+                            for _ in stride(from: 0, to: self.workoutFreq, by: 1){
+                                let randomInt = Int.random(in: 0..<self.workouts.count)
+                                self.setWorkouts.append(self.workouts[randomInt])
+                            }
                             //let ID = self.user.userID!
                         }
                     }
@@ -122,8 +126,44 @@ class HomeViewController: UITableViewController {
     //TableView Functions
     override func  tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "workoutCell", for: indexPath) as! WorkoutCell
-        cell.workoutLabel.text = "Light Jog"
+        
+        cell.workoutLabel.text = self.setWorkouts[indexPath.row]
         cell.checkMarkImage.image = UIImage(named: "icons8-unchecked-checkbox-50")
+        
+        //add to calendar?
+        var startWeek = Date().startOfWeek
+        let endWeek = Date().endOfWeek
+        
+        let currDay = Date()
+        let calendarDate = Calendar.current.dateComponents([.day, .month, .year], from: currDay)
+        let year = calendarDate.year!
+        let month = calendarDate.month!
+        let day = calendarDate.day!
+        var workoutDays: [Date]
+        
+        if startWeek[1]==2 && startWeek[2]>=28{
+            //something about the date
+            startWeek[1] = startWeek[1]+1
+            startWeek[2] = 1
+        }
+        
+        let checkEndWeek = Date().isEndofWeek
+        
+        let randomDay = Int.random(in: 0..<7)
+        let randomTime = Int.random(in: 0..<self.workoutTimes.count)
+        let workoutDate = formatter.date(from: "\(year)-\(month)-\(day+randomDay) \(self.workoutTimes[randomTime])") ?? Date()
+        
+        if self.firstCalendar==0{
+            self.check_permission(start_date: workoutDate, event_name: self.setWorkouts[indexPath.row])
+        }
+    
+        
+        if checkEndWeek==true{
+            self.firstCalendar = 0
+        } else {
+            self.firstCalendar = self.firstCalendar + 1
+        }
+        
         return cell
     }
     
@@ -133,23 +173,31 @@ class HomeViewController: UITableViewController {
         
         cell.checkMarkImage.image = UIImage(named: "icons8-checked-checkbox-50")
         
-        self.progress = self.progress + 10
+        self.progress = self.progress + (100/self.workoutFreq)
+        if self.progress == 99{
+            self.progress = 100
+        }
+        
         if self.progress < 100 {
             self.progressInfo.text = "You are \(self.progress)% complete!"
             let childUpdates = ["/users/\(self.user.userID!)/progress": self.progress]
             self.ref.updateChildValues(childUpdates)
         }
         else if self.progress == 100{
+            self.progress = 100
             self.progressInfo.text = "You Finished! Great Work!"
             let childUpdates = ["/users/\(self.user.userID!)/progress": self.progress]
             self.ref.updateChildValues(childUpdates)
         }
         else {
             //Wait until end of Week, then reset progress to 0\
-            self.progress = self.progress - 100
-            self.progressInfo.text = "You are \(self.progress)% complete!"
-            let childUpdates = ["/users/\(self.user.userID!)/progress": self.progress]
-            self.ref.updateChildValues(childUpdates)
+            let checkEndofWeek = Date().isEndofWeek
+            if checkEndofWeek==true{
+                self.progress = self.progress - 100
+                self.progressInfo.text = "You are \(self.progress)% complete!"
+                let childUpdates = ["/users/\(self.user.userID!)/progress": self.progress]
+                self.ref.updateChildValues(childUpdates)
+            }
             
         }
         UIView.animate(withDuration: 1.0){
@@ -236,4 +284,52 @@ class HomeViewController: UITableViewController {
         }
     }
 
+}
+extension Date {
+    var startOfWeek: [Int] {
+        let gregorian = Calendar(identifier: .gregorian)
+        guard let sunday = gregorian.date(from: gregorian.dateComponents([.yearForWeekOfYear, .weekOfYear], from: self)) else { return [0] }
+        let calendarDate = Calendar.current.dateComponents([.day, .month, .year], from: sunday)
+        let year = calendarDate.year!
+        let month = calendarDate.month!
+        let day = calendarDate.day!
+        return [year, month, day]//gregorian.date(byAdding: .day, value: 1, to: sunday)
+    }
+
+    var endOfWeek: [Int]{
+        let gregorian = Calendar(identifier: .gregorian)
+        guard let sunday = gregorian.date(from: gregorian.dateComponents([.yearForWeekOfYear, .weekOfYear], from: self)) else { return [0]}
+        let calendarDate = gregorian.date(byAdding: .day, value: 7, to: sunday)
+        let dayFormat = DateFormatter()
+        dayFormat.dateFormat = "d"
+        let endDay = Int(dayFormat.string(from: calendarDate!)) ?? 1
+        let monthFormat = DateFormatter()
+        monthFormat.dateFormat = "M"
+        let endMonth = Int(monthFormat.string(from: calendarDate!)) ?? 3
+        let yearFormat = DateFormatter()
+        yearFormat.dateFormat = "yyyy"
+        let endYear = Int(yearFormat.string(from: calendarDate!)) ?? 2021
+        return [endYear, endMonth, endDay]
+    }
+    
+    var isEndofWeek: Bool {
+        let gregorian = Calendar(identifier: .gregorian)
+        guard let sunday = gregorian.date(from: gregorian.dateComponents([.yearForWeekOfYear, .weekOfYear], from: self)) else { return false }
+        let calendarDate = gregorian.date(byAdding: .day, value: 7, to: sunday)
+        let dayFormat = DateFormatter()
+        dayFormat.dateFormat = "d"
+        let endDay = Int(dayFormat.string(from: calendarDate!)) ?? 1
+        let monthFormat = DateFormatter()
+        monthFormat.dateFormat = "M"
+        let endMonth = Int(monthFormat.string(from: calendarDate!)) ?? 3
+        let yearFormat = DateFormatter()
+        yearFormat.dateFormat = "yyyy"
+        let endYear = Int(yearFormat.string(from: calendarDate!)) ?? 2021
+        
+        let currDay = Date()
+        let currDate = Calendar.current.dateComponents([.day, .month, .year], from: currDay)
+        let currMonth = currDate.month!
+        let curr_day = (Int(currDate.day!) + 1)
+        return (endMonth==currMonth && endDay==curr_day)
+    }
 }

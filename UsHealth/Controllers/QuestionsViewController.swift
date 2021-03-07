@@ -60,7 +60,8 @@ class QuestionsViewController: UIViewController, UIPickerViewDelegate {
             "Intensity": IntensityData[IntensityPicker.selectedRow(inComponent: 0)] as NSString,
             "WorkoutType": WorkoutTypeData[WorkoutPicker.selectedRow(inComponent: 0)]  as NSString,
             "NumWorkoutsWeekly": WorkoutNumData[WorkoutNumPicker.selectedRow(inComponent: 0)] as NSString,
-            "Progress": 0
+            "Progress": 0,
+            "Workouts": []
         ]
         database.child("users").child(user.userID!).setValue(object)
         self.performSegue(withIdentifier: "postQsHome", sender: self)
