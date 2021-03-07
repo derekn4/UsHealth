@@ -32,6 +32,7 @@ class HomeViewController: UITableViewController {
     var firstLoad = 0
     var setWorkouts = [String]()
     var firstCalendar = 0
+    var lengthOfWorkout = 0
     
     private func retrieveProgress() {
         self.ref.child("users/\(user.userID ?? "")").observeSingleEvent(of: .value, with: {(snapshot) in
@@ -91,6 +92,13 @@ class HomeViewController: UITableViewController {
                             for _ in stride(from: 0, to: self.workoutFreq, by: 1){
                                 let randomInt = Int.random(in: 0..<self.workouts.count)
                                 self.setWorkouts.append(self.workouts[randomInt])
+                            }
+                            if dict["Intensity"] as! String == "Low" {
+                                self.lengthOfWorkout = 60*10
+                            } else if dict["Intensity"] as! String == "Medium" {
+                                self.lengthOfWorkout = 60*20
+                            } else if dict["Intensity"] as! String == "High" {
+                                self.lengthOfWorkout = 60*30
                             }
                             //let ID = self.user.userID!
                         }
@@ -270,7 +278,7 @@ class HomeViewController: UITableViewController {
                 event.calendar = calendar
                 event.startDate = start_date
                 event.title = event_name
-                event.endDate = event.startDate.addingTimeInterval(60*30)
+                event.endDate = event.startDate.addingTimeInterval(TimeInterval(self.lengthOfWorkout))
                 let reminder1 = EKAlarm(relativeOffset: -60)
                 let reminder2 = EKAlarm(relativeOffset: -30)
                 event.alarms = [reminder1, reminder2]
