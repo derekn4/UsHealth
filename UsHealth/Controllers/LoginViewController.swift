@@ -13,7 +13,6 @@ import FirebaseDatabase
 class LoginViewController: UIViewController {
 
     @IBOutlet var signInButton: GIDSignInButton!
-    //private let ref = Database.database().reference()
     
     override func viewDidLoad() {
         super.viewDidLoad()

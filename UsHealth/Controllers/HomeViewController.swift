@@ -164,8 +164,11 @@ class HomeViewController: UITableViewController {
         guard let cell = tableView.cellForRow(at: indexPath) as? WorkoutCell else {return}
         
         cell.checkMarkImage.image = UIImage(named: "icons8-checked-checkbox-50")
-        
-        self.progress = self.progress + (100/self.workoutFreq)
+        if (self.progress + (100/self.workoutFreq) == 99){
+            self.progress=100
+        } else {
+            self.progress = self.progress + (100/self.workoutFreq)
+        }
         if self.progress == 99{
             self.progress = 100
         }
@@ -189,6 +192,11 @@ class HomeViewController: UITableViewController {
                 self.progressInfo.text = "You are \(self.progress)% complete!"
                 let childUpdates = ["/users/\(self.user.userID!)/progress": self.progress]
                 self.ref.updateChildValues(childUpdates)
+            } else {
+                self.progress = self.progress - 100
+                self.progressInfo.text = "You are \(self.progress)% complete!"
+                let childUpdates = ["/users/\(self.user.userID!)/progress": self.progress]
+                self.ref.updateChildValues(childUpdates)
             }
             
         }
@@ -207,29 +215,6 @@ class HomeViewController: UITableViewController {
         //self.ref.child("users/\(user.userID ?? "")/NumWorkoutsWeekly")
         return self.workoutFreq
     }
-
-
-    @IBAction func RefreshView(_ sender: Any) {
-        print("This shoudl refresh the ProgressBar")
-        retrieveProgress()
-        print("refresh \(self.progress)")
-        UIView.animate(withDuration: 1.0){
-            //get value from firebase Database
-            self.progressBar.value = CGFloat(self.progress)
-        }
-        self.progressInfo.text = "You are \(self.progress)% complete!"
-    }
-    
-    //Calendar Functions
-        //KEEP THIS TO REMEMBER HOW TO ADD EVENTS AT SPECIFIC TIMES
-//        print("THIS SHOULD ADD EVENTS")
-//        let date = Date()
-//        let calendarDate = Calendar.current.dateComponents([.day, .month, .year], from: date)
-//        let year = calendarDate.year!
-//        let month = calendarDate.month!
-//        let day = String(Int(calendarDate.day!) + 1) //probably change to var to be able to change to days of the week
-//        self.check_permission(start_date: formatter.date(from: "\(year)-\(month)-\(day) 16:00:00") ?? Date(), event_name: "Testing")
-    //}
     
     func check_permission(start_date: Date, event_name: String) {
         let event_store = EKEventStore()
@@ -275,6 +260,14 @@ class HomeViewController: UITableViewController {
             }
         }
     }
+    
+    @IBAction func settingsView(_ sender: Any) {
+        self.performSegue(withIdentifier: "settings", sender: self)
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+            let destVC = segue.destination as! SettingsViewController
+            destVC.user = self.user
+        }
 
 }
 extension Date {
@@ -325,3 +318,5 @@ extension Date {
         return (endMonth==currMonth && endDay==curr_day)
     }
 }
+
+

@@ -169,9 +169,10 @@
                                 <action selector="onLogout:" destination="ITc-eE-Kd2" id="C55-7Z-3Vm"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="refresh" image="arrow.clockwise" catalog="system" id="QeR-9J-PPD">
+                        <barButtonItem key="rightBarButtonItem" title="settings" image="gearshape" catalog="system" id="hIt-bg-79M">
                             <connections>
-                                <action selector="RefreshView:" destination="ITc-eE-Kd2" id="GDc-Md-tYZ"/>
+                                <action selector="settingsView:" destination="ITc-eE-Kd2" id="nkk-2n-wgl"/>
+                                <segue destination="KTy-9G-c8K" kind="show" identifier="settings" id="LdK-uU-PNp"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -183,6 +184,60 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fGT-Do-c47" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1805.7971014492755" y="403.79464285714283"/>
+        </scene>
+        <!--Settings-->
+        <scene sceneID="Gqr-x4-pA1">
+            <objects>
+                <viewController title="Settings" id="KTy-9G-c8K" customClass="SettingsViewController" customModule="UsHealth" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Ioh-Oe-3UV">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Desired workout intensity" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ul7-sU-Eat">
+                                <rect key="frame" x="111" y="104" width="193" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Types of workouts" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xVk-oQ-Azo">
+                                <rect key="frame" x="137" y="255" width="140" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4SW-ke-gqW" userLabel="Intensity">
+                                <rect key="frame" x="30" y="133" width="354" height="65"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            </pickerView>
+                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1Ly-xJ-EZT">
+                                <rect key="frame" x="30" y="284" width="353" height="87"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            </pickerView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E3f-BH-Ff8" userLabel="Update">
+                                <rect key="frame" x="171" y="753" width="80" height="42"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.97254901959999995" green="0.5450980392" blue="0.58039215690000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <state key="normal" title="Update"/>
+                                <connections>
+                                    <action selector="updateSettings:" destination="KTy-9G-c8K" eventType="touchUpInside" id="ld0-9F-FAS"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="zkr-Fi-yOy"/>
+                        <color key="backgroundColor" red="0.98039215686274506" green="0.95294117647058818" blue="0.8666666666666667" alpha="1" colorSpace="calibratedRGB"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="ZDx-Uq-Xzo"/>
+                    <connections>
+                        <outlet property="IntensityPicker" destination="4SW-ke-gqW" id="JWj-T0-xDg"/>
+                        <outlet property="WorkoutPicker" destination="1Ly-xJ-EZT" id="ejl-Io-rof"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5uR-sN-tFL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2721.739130434783" y="403.79464285714283"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="WMi-BD-xu6">
@@ -401,10 +456,10 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="PtN-MQ-RSr"/>
+        <segue reference="hsc-pt-7jY"/>
     </inferredMetricsTieBreakers>
     <resources>
-        <image name="arrow.clockwise" catalog="system" width="115" height="128"/>
+        <image name="gearshape" catalog="system" width="128" height="121"/>
         <image name="icons8-unchecked-checkbox-50" width="50" height="50"/>
         <image name="usHealthLogo2" width="216" height="216"/>
     </resources>

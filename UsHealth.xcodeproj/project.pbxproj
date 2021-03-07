@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		3C41ACE325E211DF00BD519C /* EventCalendarManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C41ACE225E211DF00BD519C /* EventCalendarManager.swift */; };
 		D19CB2C3F568E35F94F8383F /* Pods_UsHealth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FDA262367F8DA98FA29E3F81 /* Pods_UsHealth.framework */; };
+		F20C66BA25F5900A00892519 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F20C66B925F5900A00892519 /* SettingsViewController.swift */; };
 		F2368B8725E1BF4A00F0E4FA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2368B8625E1BF4A00F0E4FA /* AppDelegate.swift */; };
 		F2368B8925E1BF4A00F0E4FA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2368B8825E1BF4A00F0E4FA /* SceneDelegate.swift */; };
 		F2368B8E25E1BF4A00F0E4FA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F2368B8C25E1BF4A00F0E4FA /* Main.storyboard */; };
@@ -26,6 +27,7 @@
 		3C41ACE225E211DF00BD519C /* EventCalendarManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCalendarManager.swift; sourceTree = "<group>"; };
 		5B024668E6CBAF5E4DCEDE9A /* Pods-UsHealth.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UsHealth.release.xcconfig"; path = "Target Support Files/Pods-UsHealth/Pods-UsHealth.release.xcconfig"; sourceTree = "<group>"; };
 		BBC7C98A9F443992547EC972 /* Pods-UsHealth.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UsHealth.debug.xcconfig"; path = "Target Support Files/Pods-UsHealth/Pods-UsHealth.debug.xcconfig"; sourceTree = "<group>"; };
+		F20C66B925F5900A00892519 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		F2368B8325E1BF4A00F0E4FA /* UsHealth.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UsHealth.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2368B8625E1BF4A00F0E4FA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F2368B8825E1BF4A00F0E4FA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -113,6 +115,7 @@
 				F2368BAE25E1CCC100F0E4FA /* LoginViewController.swift */,
 				F2368BB225E1CFDD00F0E4FA /* QuestionsViewController.swift */,
 				F2368BCA25E1FF7600F0E4FA /* HomeViewController.swift */,
+				F20C66B925F5900A00892519 /* SettingsViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -258,6 +261,7 @@
 				F2368BE025E203CD00F0E4FA /* UserInfo.swift in Sources */,
 				F2368B8925E1BF4A00F0E4FA /* SceneDelegate.swift in Sources */,
 				F2F5B03925EAFB8500B3AC05 /* WorkoutCell.swift in Sources */,
+				F20C66BA25F5900A00892519 /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
