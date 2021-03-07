@@ -55,20 +55,10 @@ class HomeViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         // Do any additional setup after loading the view.
         self.progressBar.value = 0
 
     }
-        
-        //NEXT STEPS:
-            //Immediately set calendar dates from arrays above
-            //schedule into Apple Calendar
-            //set row labels as Workouts + length of time?
-        
-        //TODO:
-            //Check if date is start of week
-            //Get Workout data from Database OR hard code workouts (LOL)
     
     
     override func viewWillAppear(_ animated: Bool) {
@@ -84,10 +74,8 @@ class HomeViewController: UITableViewController {
                     {
                         if v.key as! String == self.user.userID!{
                             let dict = v.value as! NSDictionary
-                            //print(dict)
-                            //print(dict["progress"]!)
                             let num = (dict["NumWorkoutsWeekly"] as? NSString)?.integerValue
-                            self.progress = dict["progress"] as! Int
+                            self.progress = dict["progress"] as? Int ?? 0
                             self.workoutFreq = num ?? 5
                             for _ in stride(from: 0, to: self.workoutFreq, by: 1){
                                 let randomInt = Int.random(in: 0..<self.workouts.count)
@@ -100,7 +88,6 @@ class HomeViewController: UITableViewController {
                             } else if dict["Intensity"] as! String == "High" {
                                 self.lengthOfWorkout = 60*30
                             }
-                            //let ID = self.user.userID!
                         }
                     }
                     UIView.animate(withDuration: 1.0){
@@ -113,7 +100,6 @@ class HomeViewController: UITableViewController {
                         self.tableView.reloadData()
                         self.firstLoad = self.firstLoad + 1
                     }
-//                    print("should have reload")
                 }
     }
     
@@ -135,19 +121,14 @@ class HomeViewController: UITableViewController {
     override func  tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "workoutCell", for: indexPath) as! WorkoutCell
         
-        cell.workoutLabel.text = self.setWorkouts[indexPath.row]
-        cell.checkMarkImage.image = UIImage(named: "icons8-unchecked-checkbox-50")
-        
         //add to calendar?
         var startWeek = Date().startOfWeek
-        let endWeek = Date().endOfWeek
         
         let currDay = Date()
         let calendarDate = Calendar.current.dateComponents([.day, .month, .year], from: currDay)
         let year = calendarDate.year!
         let month = calendarDate.month!
         let day = calendarDate.day!
-        var workoutDays: [Date]
         
         if startWeek[1]==2 && startWeek[2]>=28{
             //something about the date
@@ -171,6 +152,9 @@ class HomeViewController: UITableViewController {
         } else {
             self.firstCalendar = self.firstCalendar + 1
         }
+        
+        cell.workoutLabel.text = self.setWorkouts[indexPath.row] + " at \(month)/\(day+randomDay)/\(year) \(self.workoutTimes[randomTime])"
+        cell.checkMarkImage.image = UIImage(named: "icons8-unchecked-checkbox-50")
         
         return cell
     }
@@ -332,7 +316,7 @@ extension Date {
         let endMonth = Int(monthFormat.string(from: calendarDate!)) ?? 3
         let yearFormat = DateFormatter()
         yearFormat.dateFormat = "yyyy"
-        let endYear = Int(yearFormat.string(from: calendarDate!)) ?? 2021
+        _ = Int(yearFormat.string(from: calendarDate!)) ?? 2021
         
         let currDay = Date()
         let currDate = Calendar.current.dateComponents([.day, .month, .year], from: currDay)
